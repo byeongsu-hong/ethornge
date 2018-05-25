@@ -1,9 +1,8 @@
 package ethornge
 
 import (
-	"bytes"
 	"encoding/csv"
-	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -11,82 +10,99 @@ import (
 	"reflect"
 )
 
-type pathParam struct {
-	p string
+func createDir(path string) error {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		if err = os.MkdirAll(path, os.ModePerm); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
-func createFile(path *pathParam) {
-	var _, err = os.Stat(path.p)
-
-	if os.IsNotExist(err) {
-		var file, err = os.Create(path.p)
-		if err != nil {
-			return
+func createFile(path string) error {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		var file *os.File
+		if file, err = os.Create(path); err != nil {
+			return err
 		}
 		defer file.Close()
 	}
+	return nil
 }
 
-func writeFile(path *pathParam, data []byte) {
-	var err = ioutil.WriteFile(path.p, data, 0644)
+func removeDir(path string) error {
+	if err := os.RemoveAll(path); err != nil {
+		return err
+	}
+	return nil
+}
+
+func removeFile(path string) error {
+	if err := os.Remove(path); err != nil {
+		return err
+	}
+	return nil
+}
+
+func writeFile(path string, data []byte) error {
+	var err = ioutil.WriteFile(path, data, 0644)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+	return nil
 }
 
-func writeJSON(path *pathParam, v interface{}) {
-	createFile(path)
-	var data, err = json.MarshalIndent(v, "", "    ")
+func readFile(path string) ([]byte, error) {
+	var data, err = ioutil.ReadFile(path)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-	writeFile(path, data)
+	return data, nil
 }
 
-func removeFile(path *pathParam) {
-	if err := os.Remove(path.p); err != nil {
-		log.Fatal(err)
-	}
-}
-
-func readFile(path *pathParam) []byte {
-	var data, err = ioutil.ReadFile(path.p)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return data
-}
-
-func readJSON(path *pathParam, v interface{}) {
-	if err := json.Unmarshal(readFile(path), &v); err != nil {
-		log.Fatal(err)
-	}
-}
-
-func readCSV(path *pathParam, mock interface{}) (vs []interface{}) {
-	var csvReader = csv.NewReader(bytes.NewReader(readFile(path)))
+func readCSV(path string, mock interface{}) (vs []interface{}, err error) {
+	var file, _ = os.Open(path)
+	var csvReader = csv.NewReader(file)
 	var m = reflect.ValueOf(mock)
 
 	for {
 		var v = make([]interface{}, m.NumField())
 		var record, err = csvReader.Read()
-		if len(record) != m.NumField() {
-			log.Fatal("Number of fields does not match [record]")
-		}
 		if err == io.EOF {
 			break
 		}
 		if err != nil {
 			log.Fatal(err)
 		}
+		if len(record) != m.NumField() {
+			return nil, fmt.Errorf("Number of fields does not match [record]")
+		}
 		for i := 0; i < m.NumField(); i++ {
 			var f = m.Field(i)
 			if f.Kind() != reflect.String {
-				log.Fatal("Field type does not match [string]")
+				return nil, fmt.Errorf("Field type does not match [string]")
 			}
 			v[i] = record[i]
 		}
 		vs = append(vs, v)
 	}
-	return
+	return vs, nil
+}
+
+func getDirElems(path string) ([]string, error) {
+	var err error
+
+	var files []os.FileInfo
+	if files, err = ioutil.ReadDir(path); err != nil {
+		return nil, err
+	}
+
+	var sources []string
+	for _, file := range files {
+		if file != nil && !file.IsDir() {
+			sources = append(sources, file.Name())
+		}
+	}
+
+	return sources, nil
 }

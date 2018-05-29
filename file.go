@@ -10,7 +10,7 @@ import (
 	"reflect"
 )
 
-func createDir(path string) error {
+func CreateDir(path string) error {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		if err = os.MkdirAll(path, os.ModePerm); err != nil {
 			return err
@@ -19,7 +19,7 @@ func createDir(path string) error {
 	return nil
 }
 
-func createFile(path string) error {
+func CreateFile(path string) error {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		var file *os.File
 		if file, err = os.Create(path); err != nil {
@@ -30,21 +30,21 @@ func createFile(path string) error {
 	return nil
 }
 
-func removeDir(path string) error {
+func RemoveDir(path string) error {
 	if err := os.RemoveAll(path); err != nil {
 		return err
 	}
 	return nil
 }
 
-func removeFile(path string) error {
+func RemoveFile(path string) error {
 	if err := os.Remove(path); err != nil {
 		return err
 	}
 	return nil
 }
 
-func writeFile(path string, data []byte) error {
+func WriteFile(path string, data []byte) error {
 	var err = ioutil.WriteFile(path, data, 0644)
 	if err != nil {
 		return err
@@ -52,7 +52,7 @@ func writeFile(path string, data []byte) error {
 	return nil
 }
 
-func readFile(path string) ([]byte, error) {
+func ReadFile(path string) ([]byte, error) {
 	var data, err = ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
@@ -60,7 +60,7 @@ func readFile(path string) ([]byte, error) {
 	return data, nil
 }
 
-func readCSV(path string, mock interface{}) (vs []interface{}, err error) {
+func ReadCSV(path string, mock interface{}) (vs []interface{}, err error) {
 	var file, _ = os.Open(path)
 	var csvReader = csv.NewReader(file)
 	var m = reflect.ValueOf(mock)
@@ -89,7 +89,7 @@ func readCSV(path string, mock interface{}) (vs []interface{}, err error) {
 	return vs, nil
 }
 
-func getDirElems(path string) ([]string, error) {
+func GetDirElems(path string) ([]string, error) {
 	var err error
 
 	var files []os.FileInfo

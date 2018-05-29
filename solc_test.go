@@ -11,7 +11,7 @@ var TestContractPath = "test/contract"
 var TestBuildPath = "test/build"
 
 func TestCompile(t *testing.T) {
-	removeDir("test/build")
+	RemoveDir("test/build")
 
 	if err := Compile(
 		"solc",
@@ -24,7 +24,7 @@ func TestCompile(t *testing.T) {
 	// Get solidity files from folder
 	var err error
 	var sources []string
-	if sources, err = getDirElems(TestContractPath); err != nil {
+	if sources, err = GetDirElems(TestContractPath); err != nil {
 		return
 	}
 

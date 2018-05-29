@@ -25,10 +25,10 @@ var TestCSV = "test/test.csv"
 func TestCreateFile(t *testing.T) {
 	var err error
 
-	if err = removeFile(TestFile); err != nil {
+	if err = RemoveFile(TestFile); err != nil {
 		t.Error("Error : ", err)
 	}
-	if err = createFile(TestFile); err != nil {
+	if err = CreateFile(TestFile); err != nil {
 		t.Error("Error : ", err)
 	}
 	if _, err = os.Stat(TestFile); os.IsNotExist(err) {
@@ -40,13 +40,13 @@ func TestReadWriteRemoveFile(t *testing.T) {
 	var err error
 	var data []byte
 
-	if err = removeFile(TestFile); err != nil {
+	if err = RemoveFile(TestFile); err != nil {
 		t.Error("Error : ", err)
 	}
-	if err = writeFile(TestFile, []byte(fmt.Sprint(TestData))); err != nil {
+	if err = WriteFile(TestFile, []byte(fmt.Sprint(TestData))); err != nil {
 		t.Error("Error : ", err)
 	}
-	if data, err = readFile(TestFile); err != nil {
+	if data, err = ReadFile(TestFile); err != nil {
 		t.Error("Error : ", err)
 	}
 	if string(data) != fmt.Sprint(TestData) {
@@ -55,7 +55,7 @@ func TestReadWriteRemoveFile(t *testing.T) {
 }
 
 func TestReadCSV(t *testing.T) {
-	var vs, err = readCSV(TestCSV, TestStruct{})
+	var vs, err = ReadCSV(TestCSV, TestStruct{})
 	if err != nil {
 		t.Error("Error : ", err)
 	}

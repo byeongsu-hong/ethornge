@@ -10,12 +10,12 @@ import (
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
 const (
 	URL = "http://localhost:8545" // Ganache only Plz
-	KEY = "e8dd70be4f88ad68e2d833bbefa8b85cd39610857fdbc7b08630c32be4540d50"
 )
 
 var (
@@ -49,14 +49,35 @@ func TestLedgerProvider(t *testing.T) {
 		return
 	}
 
-	for address := range ganacheProviders {
-		var balance *big.Int
-		if balance, err = client.BalanceAt(ctx, address, nil); err != nil {
+	var to = common.HexToAddress("0x93486fb06d2c18f3802d2c6c7628034067030e9a")
+	for _, opts := range ganacheProviders {
+		opts = &bind.TransactOpts{
+			From:     opts.From,
+			Signer:   opts.Signer,
+			GasLimit: 21000,
+			GasPrice: Gwei(15),
+			Value:    Ether(10),
+			Context:  ctx,
+		}
+
+		var tx *types.Transaction
+		if tx, err = NewSignedTransaction(client, opts, to); err != nil {
 			t.Error("Error : ", err)
 			return
 		}
 
-		log.Println(balance)
+		if err = client.SendTransaction(ctx, tx); err != nil {
+			t.Error("Error : ", err)
+			return
+		}
+
+		var balance *big.Int
+		if balance, err = client.BalanceAt(ctx, to, nil); err != nil {
+			t.Error("Error : ", err)
+			return
+		}
+
+		log.Println(WeiToEth(balance))
 	}
 
 	//var account accounts.Account

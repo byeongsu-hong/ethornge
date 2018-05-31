@@ -17,9 +17,9 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-type TxOpts map[int]*bind.TransactOpts
+type TxOpts []*bind.TransactOpts
 
-func getLedgerOpt(account accounts.Account, wallet accounts.Wallet) (txOpts *bind.TransactOpts) {
+func getLedgerOpt(account accounts.Account, wallet accounts.Wallet) *bind.TransactOpts {
 	return &bind.TransactOpts{
 		From: account.Address,
 		Signer: func(signer types.Signer, addr common.Address, tx *types.Transaction) (*types.Transaction, error) {
@@ -44,7 +44,6 @@ func GetLedgerOpts(opt *ProviderOption) (opts TxOpts, err error) {
 		return
 	}
 
-	opts = make(TxOpts)
 	for i := opt.Start; i < opt.End; i++ {
 		var path accounts.DerivationPath
 		if path, err = accounts.ParseDerivationPath(opt.Path + strconv.Itoa(i)); err != nil {
@@ -56,7 +55,7 @@ func GetLedgerOpts(opt *ProviderOption) (opts TxOpts, err error) {
 			return
 		}
 
-		opts[i] = getLedgerOpt(account, wallet)
+		opts = append(opts, getLedgerOpt(account, wallet))
 	}
 	return
 }
@@ -77,13 +76,12 @@ func getPrivateKeyOpt(key string) (opt *bind.TransactOpts, err error) {
 }
 
 func GetPrivateKeyOpts(opt *ProviderOption) (opts TxOpts, err error) {
-	opts = make(TxOpts)
 	for i, key := range opt.Keys {
 		var txOpts *bind.TransactOpts
 		if txOpts, err = getPrivateKeyOpt(key); err != nil {
 			return
 		}
-		opts[i] = txOpts
+		opts = append(opts, txOpts)
 	}
 	return
 }

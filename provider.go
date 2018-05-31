@@ -21,10 +21,10 @@ type ProviderOption struct {
 	Network   string
 	NetworkID int
 
-	// Private Key Option
+	// PrivateKey provider Option
 	Keys []string
 
-	// Ledger Provider Option
+	// Ledger provider Option
 	Path  string
 	Start int
 	End   int

@@ -7,7 +7,7 @@ const (
 	KOVAN   = 42
 )
 
-func convertId(id int) string {
+func ConvertId(id int) string {
 	switch id {
 	case MAINNET:
 		return "mainnet"

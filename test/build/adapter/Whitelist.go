@@ -504,7 +504,7 @@ type WhitelistOwnershipRenounced struct {
 
 // FilterOwnershipRenounced is a free log retrieval operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_Whitelist *WhitelistFilterer) FilterOwnershipRenounced(opts *bind.FilterOpts, previousOwner []common.Address) (*WhitelistOwnershipRenouncedIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -521,7 +521,7 @@ func (_Whitelist *WhitelistFilterer) FilterOwnershipRenounced(opts *bind.FilterO
 
 // WatchOwnershipRenounced is a free log subscription operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_Whitelist *WhitelistFilterer) WatchOwnershipRenounced(opts *bind.WatchOpts, sink chan<- *WhitelistOwnershipRenounced, previousOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -637,7 +637,7 @@ type WhitelistOwnershipTransferred struct {
 
 // FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_Whitelist *WhitelistFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*WhitelistOwnershipTransferredIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -658,7 +658,7 @@ func (_Whitelist *WhitelistFilterer) FilterOwnershipTransferred(opts *bind.Filte
 
 // WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_Whitelist *WhitelistFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *WhitelistOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -778,7 +778,7 @@ type WhitelistRoleAdded struct {
 
 // FilterRoleAdded is a free log retrieval operation binding the contract event 0xbfec83d64eaa953f2708271a023ab9ee82057f8f3578d548c1a4ba0b5b700489.
 //
-// Solidity: event RoleAdded(addr address, roleName string)
+// Solidity: e RoleAdded(addr address, roleName string)
 func (_Whitelist *WhitelistFilterer) FilterRoleAdded(opts *bind.FilterOpts) (*WhitelistRoleAddedIterator, error) {
 
 	logs, sub, err := _Whitelist.contract.FilterLogs(opts, "RoleAdded")
@@ -790,7 +790,7 @@ func (_Whitelist *WhitelistFilterer) FilterRoleAdded(opts *bind.FilterOpts) (*Wh
 
 // WatchRoleAdded is a free log subscription operation binding the contract event 0xbfec83d64eaa953f2708271a023ab9ee82057f8f3578d548c1a4ba0b5b700489.
 //
-// Solidity: event RoleAdded(addr address, roleName string)
+// Solidity: e RoleAdded(addr address, roleName string)
 func (_Whitelist *WhitelistFilterer) WatchRoleAdded(opts *bind.WatchOpts, sink chan<- *WhitelistRoleAdded) (event.Subscription, error) {
 
 	logs, sub, err := _Whitelist.contract.WatchLogs(opts, "RoleAdded")
@@ -901,7 +901,7 @@ type WhitelistRoleRemoved struct {
 
 // FilterRoleRemoved is a free log retrieval operation binding the contract event 0xd211483f91fc6eff862467f8de606587a30c8fc9981056f051b897a418df803a.
 //
-// Solidity: event RoleRemoved(addr address, roleName string)
+// Solidity: e RoleRemoved(addr address, roleName string)
 func (_Whitelist *WhitelistFilterer) FilterRoleRemoved(opts *bind.FilterOpts) (*WhitelistRoleRemovedIterator, error) {
 
 	logs, sub, err := _Whitelist.contract.FilterLogs(opts, "RoleRemoved")
@@ -913,7 +913,7 @@ func (_Whitelist *WhitelistFilterer) FilterRoleRemoved(opts *bind.FilterOpts) (*
 
 // WatchRoleRemoved is a free log subscription operation binding the contract event 0xd211483f91fc6eff862467f8de606587a30c8fc9981056f051b897a418df803a.
 //
-// Solidity: event RoleRemoved(addr address, roleName string)
+// Solidity: e RoleRemoved(addr address, roleName string)
 func (_Whitelist *WhitelistFilterer) WatchRoleRemoved(opts *bind.WatchOpts, sink chan<- *WhitelistRoleRemoved) (event.Subscription, error) {
 
 	logs, sub, err := _Whitelist.contract.WatchLogs(opts, "RoleRemoved")
@@ -1023,7 +1023,7 @@ type WhitelistWhitelistedAddressAdded struct {
 
 // FilterWhitelistedAddressAdded is a free log retrieval operation binding the contract event 0xd1bba68c128cc3f427e5831b3c6f99f480b6efa6b9e80c757768f6124158cc3f.
 //
-// Solidity: event WhitelistedAddressAdded(addr address)
+// Solidity: e WhitelistedAddressAdded(addr address)
 func (_Whitelist *WhitelistFilterer) FilterWhitelistedAddressAdded(opts *bind.FilterOpts) (*WhitelistWhitelistedAddressAddedIterator, error) {
 
 	logs, sub, err := _Whitelist.contract.FilterLogs(opts, "WhitelistedAddressAdded")
@@ -1035,7 +1035,7 @@ func (_Whitelist *WhitelistFilterer) FilterWhitelistedAddressAdded(opts *bind.Fi
 
 // WatchWhitelistedAddressAdded is a free log subscription operation binding the contract event 0xd1bba68c128cc3f427e5831b3c6f99f480b6efa6b9e80c757768f6124158cc3f.
 //
-// Solidity: event WhitelistedAddressAdded(addr address)
+// Solidity: e WhitelistedAddressAdded(addr address)
 func (_Whitelist *WhitelistFilterer) WatchWhitelistedAddressAdded(opts *bind.WatchOpts, sink chan<- *WhitelistWhitelistedAddressAdded) (event.Subscription, error) {
 
 	logs, sub, err := _Whitelist.contract.WatchLogs(opts, "WhitelistedAddressAdded")
@@ -1145,7 +1145,7 @@ type WhitelistWhitelistedAddressRemoved struct {
 
 // FilterWhitelistedAddressRemoved is a free log retrieval operation binding the contract event 0xf1abf01a1043b7c244d128e8595cf0c1d10743b022b03a02dffd8ca3bf729f5a.
 //
-// Solidity: event WhitelistedAddressRemoved(addr address)
+// Solidity: e WhitelistedAddressRemoved(addr address)
 func (_Whitelist *WhitelistFilterer) FilterWhitelistedAddressRemoved(opts *bind.FilterOpts) (*WhitelistWhitelistedAddressRemovedIterator, error) {
 
 	logs, sub, err := _Whitelist.contract.FilterLogs(opts, "WhitelistedAddressRemoved")
@@ -1157,7 +1157,7 @@ func (_Whitelist *WhitelistFilterer) FilterWhitelistedAddressRemoved(opts *bind.
 
 // WatchWhitelistedAddressRemoved is a free log subscription operation binding the contract event 0xf1abf01a1043b7c244d128e8595cf0c1d10743b022b03a02dffd8ca3bf729f5a.
 //
-// Solidity: event WhitelistedAddressRemoved(addr address)
+// Solidity: e WhitelistedAddressRemoved(addr address)
 func (_Whitelist *WhitelistFilterer) WatchWhitelistedAddressRemoved(opts *bind.WatchOpts, sink chan<- *WhitelistWhitelistedAddressRemoved) (event.Subscription, error) {
 
 	logs, sub, err := _Whitelist.contract.WatchLogs(opts, "WhitelistedAddressRemoved")

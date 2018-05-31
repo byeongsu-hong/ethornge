@@ -572,7 +572,7 @@ type MintableTokenApproval struct {
 
 // FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
-// Solidity: event Approval(owner indexed address, spender indexed address, value uint256)
+// Solidity: e Approval(owner indexed address, spender indexed address, value uint256)
 func (_MintableToken *MintableTokenFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*MintableTokenApprovalIterator, error) {
 
 	var ownerRule []interface{}
@@ -593,7 +593,7 @@ func (_MintableToken *MintableTokenFilterer) FilterApproval(opts *bind.FilterOpt
 
 // WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
-// Solidity: event Approval(owner indexed address, spender indexed address, value uint256)
+// Solidity: e Approval(owner indexed address, spender indexed address, value uint256)
 func (_MintableToken *MintableTokenFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *MintableTokenApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
 
 	var ownerRule []interface{}
@@ -713,7 +713,7 @@ type MintableTokenMint struct {
 
 // FilterMint is a free log retrieval operation binding the contract event 0x0f6798a560793a54c3bcfe86a93cde1e73087d944c0ea20544137d4121396885.
 //
-// Solidity: event Mint(to indexed address, amount uint256)
+// Solidity: e Mint(to indexed address, amount uint256)
 func (_MintableToken *MintableTokenFilterer) FilterMint(opts *bind.FilterOpts, to []common.Address) (*MintableTokenMintIterator, error) {
 
 	var toRule []interface{}
@@ -730,7 +730,7 @@ func (_MintableToken *MintableTokenFilterer) FilterMint(opts *bind.FilterOpts, t
 
 // WatchMint is a free log subscription operation binding the contract event 0x0f6798a560793a54c3bcfe86a93cde1e73087d944c0ea20544137d4121396885.
 //
-// Solidity: event Mint(to indexed address, amount uint256)
+// Solidity: e Mint(to indexed address, amount uint256)
 func (_MintableToken *MintableTokenFilterer) WatchMint(opts *bind.WatchOpts, sink chan<- *MintableTokenMint, to []common.Address) (event.Subscription, error) {
 
 	var toRule []interface{}
@@ -844,7 +844,7 @@ type MintableTokenMintFinished struct {
 
 // FilterMintFinished is a free log retrieval operation binding the contract event 0xae5184fba832cb2b1f702aca6117b8d265eaf03ad33eb133f19dde0f5920fa08.
 //
-// Solidity: event MintFinished()
+// Solidity: e MintFinished()
 func (_MintableToken *MintableTokenFilterer) FilterMintFinished(opts *bind.FilterOpts) (*MintableTokenMintFinishedIterator, error) {
 
 	logs, sub, err := _MintableToken.contract.FilterLogs(opts, "MintFinished")
@@ -856,7 +856,7 @@ func (_MintableToken *MintableTokenFilterer) FilterMintFinished(opts *bind.Filte
 
 // WatchMintFinished is a free log subscription operation binding the contract event 0xae5184fba832cb2b1f702aca6117b8d265eaf03ad33eb133f19dde0f5920fa08.
 //
-// Solidity: event MintFinished()
+// Solidity: e MintFinished()
 func (_MintableToken *MintableTokenFilterer) WatchMintFinished(opts *bind.WatchOpts, sink chan<- *MintableTokenMintFinished) (event.Subscription, error) {
 
 	logs, sub, err := _MintableToken.contract.WatchLogs(opts, "MintFinished")
@@ -966,7 +966,7 @@ type MintableTokenOwnershipRenounced struct {
 
 // FilterOwnershipRenounced is a free log retrieval operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_MintableToken *MintableTokenFilterer) FilterOwnershipRenounced(opts *bind.FilterOpts, previousOwner []common.Address) (*MintableTokenOwnershipRenouncedIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -983,7 +983,7 @@ func (_MintableToken *MintableTokenFilterer) FilterOwnershipRenounced(opts *bind
 
 // WatchOwnershipRenounced is a free log subscription operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_MintableToken *MintableTokenFilterer) WatchOwnershipRenounced(opts *bind.WatchOpts, sink chan<- *MintableTokenOwnershipRenounced, previousOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -1099,7 +1099,7 @@ type MintableTokenOwnershipTransferred struct {
 
 // FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_MintableToken *MintableTokenFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*MintableTokenOwnershipTransferredIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -1120,7 +1120,7 @@ func (_MintableToken *MintableTokenFilterer) FilterOwnershipTransferred(opts *bi
 
 // WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_MintableToken *MintableTokenFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *MintableTokenOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -1241,7 +1241,7 @@ type MintableTokenTransfer struct {
 
 // FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
-// Solidity: event Transfer(from indexed address, to indexed address, value uint256)
+// Solidity: e Transfer(from indexed address, to indexed address, value uint256)
 func (_MintableToken *MintableTokenFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*MintableTokenTransferIterator, error) {
 
 	var fromRule []interface{}
@@ -1262,7 +1262,7 @@ func (_MintableToken *MintableTokenFilterer) FilterTransfer(opts *bind.FilterOpt
 
 // WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
-// Solidity: event Transfer(from indexed address, to indexed address, value uint256)
+// Solidity: e Transfer(from indexed address, to indexed address, value uint256)
 func (_MintableToken *MintableTokenFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *MintableTokenTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
 
 	var fromRule []interface{}

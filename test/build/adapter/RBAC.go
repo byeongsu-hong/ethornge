@@ -301,7 +301,7 @@ type RBACRoleAdded struct {
 
 // FilterRoleAdded is a free log retrieval operation binding the contract event 0xbfec83d64eaa953f2708271a023ab9ee82057f8f3578d548c1a4ba0b5b700489.
 //
-// Solidity: event RoleAdded(addr address, roleName string)
+// Solidity: e RoleAdded(addr address, roleName string)
 func (_RBAC *RBACFilterer) FilterRoleAdded(opts *bind.FilterOpts) (*RBACRoleAddedIterator, error) {
 
 	logs, sub, err := _RBAC.contract.FilterLogs(opts, "RoleAdded")
@@ -313,7 +313,7 @@ func (_RBAC *RBACFilterer) FilterRoleAdded(opts *bind.FilterOpts) (*RBACRoleAdde
 
 // WatchRoleAdded is a free log subscription operation binding the contract event 0xbfec83d64eaa953f2708271a023ab9ee82057f8f3578d548c1a4ba0b5b700489.
 //
-// Solidity: event RoleAdded(addr address, roleName string)
+// Solidity: e RoleAdded(addr address, roleName string)
 func (_RBAC *RBACFilterer) WatchRoleAdded(opts *bind.WatchOpts, sink chan<- *RBACRoleAdded) (event.Subscription, error) {
 
 	logs, sub, err := _RBAC.contract.WatchLogs(opts, "RoleAdded")
@@ -424,7 +424,7 @@ type RBACRoleRemoved struct {
 
 // FilterRoleRemoved is a free log retrieval operation binding the contract event 0xd211483f91fc6eff862467f8de606587a30c8fc9981056f051b897a418df803a.
 //
-// Solidity: event RoleRemoved(addr address, roleName string)
+// Solidity: e RoleRemoved(addr address, roleName string)
 func (_RBAC *RBACFilterer) FilterRoleRemoved(opts *bind.FilterOpts) (*RBACRoleRemovedIterator, error) {
 
 	logs, sub, err := _RBAC.contract.FilterLogs(opts, "RoleRemoved")
@@ -436,7 +436,7 @@ func (_RBAC *RBACFilterer) FilterRoleRemoved(opts *bind.FilterOpts) (*RBACRoleRe
 
 // WatchRoleRemoved is a free log subscription operation binding the contract event 0xd211483f91fc6eff862467f8de606587a30c8fc9981056f051b897a418df803a.
 //
-// Solidity: event RoleRemoved(addr address, roleName string)
+// Solidity: e RoleRemoved(addr address, roleName string)
 func (_RBAC *RBACFilterer) WatchRoleRemoved(opts *bind.WatchOpts, sink chan<- *RBACRoleRemoved) (event.Subscription, error) {
 
 	logs, sub, err := _RBAC.contract.WatchLogs(opts, "RoleRemoved")

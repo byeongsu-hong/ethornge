@@ -407,7 +407,7 @@ type SaleManagerFail struct {
 
 // FilterFail is a free log retrieval operation binding the contract event 0x21d0324cd6cce67ffe52c8955137310671bcef292844385858e00841a18d60c0.
 //
-// Solidity: event Fail(_addr indexed address)
+// Solidity: e Fail(_addr indexed address)
 func (_SaleManager *SaleManagerFilterer) FilterFail(opts *bind.FilterOpts, _addr []common.Address) (*SaleManagerFailIterator, error) {
 
 	var _addrRule []interface{}
@@ -424,7 +424,7 @@ func (_SaleManager *SaleManagerFilterer) FilterFail(opts *bind.FilterOpts, _addr
 
 // WatchFail is a free log subscription operation binding the contract event 0x21d0324cd6cce67ffe52c8955137310671bcef292844385858e00841a18d60c0.
 //
-// Solidity: event Fail(_addr indexed address)
+// Solidity: e Fail(_addr indexed address)
 func (_SaleManager *SaleManagerFilterer) WatchFail(opts *bind.WatchOpts, sink chan<- *SaleManagerFail, _addr []common.Address) (event.Subscription, error) {
 
 	var _addrRule []interface{}
@@ -539,7 +539,7 @@ type SaleManagerOwnershipRenounced struct {
 
 // FilterOwnershipRenounced is a free log retrieval operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_SaleManager *SaleManagerFilterer) FilterOwnershipRenounced(opts *bind.FilterOpts, previousOwner []common.Address) (*SaleManagerOwnershipRenouncedIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -556,7 +556,7 @@ func (_SaleManager *SaleManagerFilterer) FilterOwnershipRenounced(opts *bind.Fil
 
 // WatchOwnershipRenounced is a free log subscription operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_SaleManager *SaleManagerFilterer) WatchOwnershipRenounced(opts *bind.WatchOpts, sink chan<- *SaleManagerOwnershipRenounced, previousOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -672,7 +672,7 @@ type SaleManagerOwnershipTransferred struct {
 
 // FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_SaleManager *SaleManagerFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*SaleManagerOwnershipTransferredIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -693,7 +693,7 @@ func (_SaleManager *SaleManagerFilterer) FilterOwnershipTransferred(opts *bind.F
 
 // WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_SaleManager *SaleManagerFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *SaleManagerOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}

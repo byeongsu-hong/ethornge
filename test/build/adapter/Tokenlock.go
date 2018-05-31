@@ -606,7 +606,7 @@ type TokenlockOwnershipRenounced struct {
 
 // FilterOwnershipRenounced is a free log retrieval operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_Tokenlock *TokenlockFilterer) FilterOwnershipRenounced(opts *bind.FilterOpts, previousOwner []common.Address) (*TokenlockOwnershipRenouncedIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -623,7 +623,7 @@ func (_Tokenlock *TokenlockFilterer) FilterOwnershipRenounced(opts *bind.FilterO
 
 // WatchOwnershipRenounced is a free log subscription operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_Tokenlock *TokenlockFilterer) WatchOwnershipRenounced(opts *bind.WatchOpts, sink chan<- *TokenlockOwnershipRenounced, previousOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -739,7 +739,7 @@ type TokenlockOwnershipTransferred struct {
 
 // FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_Tokenlock *TokenlockFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*TokenlockOwnershipTransferredIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -760,7 +760,7 @@ func (_Tokenlock *TokenlockFilterer) FilterOwnershipTransferred(opts *bind.Filte
 
 // WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_Tokenlock *TokenlockFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *TokenlockOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}

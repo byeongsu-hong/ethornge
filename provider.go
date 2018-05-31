@@ -1,87 +1,59 @@
 package ethornge
 
 import (
-	"crypto/ecdsa"
-	"encoding/hex"
-	"fmt"
+	"context"
 
-	"strconv"
-
-	"math/big"
-
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/accounts/usbwallet"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/ethclient"
 )
 
-func getLedgerProvider(account accounts.Account, wallet accounts.Wallet) (txOpts *bind.TransactOpts) {
-	return &bind.TransactOpts{
-		From: account.Address,
-		Signer: func(signer types.Signer, addr common.Address, tx *types.Transaction) (*types.Transaction, error) {
-			return wallet.SignTx(account, tx, big.NewInt(5777))
-		},
+var (
+	DefaultLedgerOption = &ProviderOption{
+		Path:  "m/44'/60'/0'/",
+		Start: 0,
+		End:   1,
 	}
+)
+
+type ProviderOption struct {
+	// Common option
+	URL       string
+	Context   context.Context
+	Network   string
+	NetworkID int
+
+	// Private Key Option
+	Keys []string
+
+	// Ledger Provider Option
+	Path  string
+	Start int
+	End   int
 }
 
-func LedgerProvider(p string, startIndex int, endIndex int) (providers map[common.Address]*bind.TransactOpts, err error) {
-	var hub *usbwallet.Hub
-	if hub, err = usbwallet.NewLedgerHub(); err != nil {
+type Provider struct {
+	Client   *ethclient.Client
+	Context  context.Context
+	Accounts TxOpts
+}
+
+func LedgerProvider(opt *ProviderOption) (provider *Provider, err error) {
+	provider = new(Provider)
+	provider.Context = opt.Context
+	provider.Client, err = ethclient.Dial(opt.URL)
+	if err != nil {
 		return
 	}
-
-	if len(hub.Wallets()) == 0 {
-		err = fmt.Errorf("No wallet found")
-		return
-	}
-
-	var wallet = hub.Wallets()[0]
-	if err = wallet.Open(""); err != nil {
-		return
-	}
-
-	providers = make(map[common.Address]*bind.TransactOpts)
-	for i := startIndex; i < endIndex; i++ {
-		var path accounts.DerivationPath
-		if path, err = accounts.ParseDerivationPath(p + strconv.Itoa(i)); err != nil {
-			return
-		}
-
-		var account accounts.Account
-		if account, err = wallet.Derive(path, true); err != nil {
-			return
-		}
-
-		providers[account.Address] = getLedgerProvider(account, wallet)
-	}
+	provider.Accounts, err = GetLedgerOpts(opt)
 	return
 }
 
-func getKeyProvider(key string) (txOpts *bind.TransactOpts, err error) {
-	var buf []byte
-	if buf, err = hex.DecodeString(key); err != nil {
+func PrivateKeyProvider(opt *ProviderOption) (provider *Provider, err error) {
+	provider = new(Provider)
+	provider.Context = opt.Context
+	provider.Client, err = ethclient.Dial(opt.URL)
+	if err != nil {
 		return
 	}
-
-	var tmp *ecdsa.PrivateKey
-	if tmp, err = crypto.ToECDSA(buf); err != nil {
-		return
-	}
-
-	txOpts = bind.NewKeyedTransactor(tmp)
-	return
-}
-
-func PrivKeyProvider(keys []string) (providers map[common.Address]*bind.TransactOpts, err error) {
-	providers = make(map[common.Address]*bind.TransactOpts)
-	for _, key := range keys {
-		var txOpts *bind.TransactOpts
-		if txOpts, err = getKeyProvider(key); err != nil {
-			return
-		}
-		providers[txOpts.From] = txOpts
-	}
+	provider.Accounts, err = GetPrivateKeyOpts(opt)
 	return
 }

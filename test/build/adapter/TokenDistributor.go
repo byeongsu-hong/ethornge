@@ -491,7 +491,7 @@ type TokenDistributorOwnershipRenounced struct {
 
 // FilterOwnershipRenounced is a free log retrieval operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_TokenDistributor *TokenDistributorFilterer) FilterOwnershipRenounced(opts *bind.FilterOpts, previousOwner []common.Address) (*TokenDistributorOwnershipRenouncedIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -508,7 +508,7 @@ func (_TokenDistributor *TokenDistributorFilterer) FilterOwnershipRenounced(opts
 
 // WatchOwnershipRenounced is a free log subscription operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_TokenDistributor *TokenDistributorFilterer) WatchOwnershipRenounced(opts *bind.WatchOpts, sink chan<- *TokenDistributorOwnershipRenounced, previousOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -624,7 +624,7 @@ type TokenDistributorOwnershipTransferred struct {
 
 // FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_TokenDistributor *TokenDistributorFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*TokenDistributorOwnershipTransferredIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -645,7 +645,7 @@ func (_TokenDistributor *TokenDistributorFilterer) FilterOwnershipTransferred(op
 
 // WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_TokenDistributor *TokenDistributorFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *TokenDistributorOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -766,7 +766,7 @@ type TokenDistributorRelease struct {
 
 // FilterRelease is a free log retrieval operation binding the contract event 0x2c57dec1db0095a6b800c2698d5bbceef2c180c6ac43429769a719658983f677.
 //
-// Solidity: event Release(_to indexed address, _safeAmount uint256, _lockAmount uint256)
+// Solidity: e Release(_to indexed address, _safeAmount uint256, _lockAmount uint256)
 func (_TokenDistributor *TokenDistributorFilterer) FilterRelease(opts *bind.FilterOpts, _to []common.Address) (*TokenDistributorReleaseIterator, error) {
 
 	var _toRule []interface{}
@@ -783,7 +783,7 @@ func (_TokenDistributor *TokenDistributorFilterer) FilterRelease(opts *bind.Filt
 
 // WatchRelease is a free log subscription operation binding the contract event 0x2c57dec1db0095a6b800c2698d5bbceef2c180c6ac43429769a719658983f677.
 //
-// Solidity: event Release(_to indexed address, _safeAmount uint256, _lockAmount uint256)
+// Solidity: e Release(_to indexed address, _safeAmount uint256, _lockAmount uint256)
 func (_TokenDistributor *TokenDistributorFilterer) WatchRelease(opts *bind.WatchOpts, sink chan<- *TokenDistributorRelease, _to []common.Address) (event.Subscription, error) {
 
 	var _toRule []interface{}

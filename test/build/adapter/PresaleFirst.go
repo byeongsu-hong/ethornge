@@ -919,7 +919,7 @@ type PresaleFirstBuyTokens struct {
 
 // FilterBuyTokens is a free log retrieval operation binding the contract event 0x0a37b72bb67eee30e09084cf386f8a17817c57f620c3ab95fb25d6a20356ec77.
 //
-// Solidity: event BuyTokens(buyer indexed address, price uint256, tokens uint256)
+// Solidity: e BuyTokens(buyer indexed address, price uint256, tokens uint256)
 func (_PresaleFirst *PresaleFirstFilterer) FilterBuyTokens(opts *bind.FilterOpts, buyer []common.Address) (*PresaleFirstBuyTokensIterator, error) {
 
 	var buyerRule []interface{}
@@ -936,7 +936,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterBuyTokens(opts *bind.FilterOpts
 
 // WatchBuyTokens is a free log subscription operation binding the contract event 0x0a37b72bb67eee30e09084cf386f8a17817c57f620c3ab95fb25d6a20356ec77.
 //
-// Solidity: event BuyTokens(buyer indexed address, price uint256, tokens uint256)
+// Solidity: e BuyTokens(buyer indexed address, price uint256, tokens uint256)
 func (_PresaleFirst *PresaleFirstFilterer) WatchBuyTokens(opts *bind.WatchOpts, sink chan<- *PresaleFirstBuyTokens, buyer []common.Address) (event.Subscription, error) {
 
 	var buyerRule []interface{}
@@ -1051,7 +1051,7 @@ type PresaleFirstOwnershipRenounced struct {
 
 // FilterOwnershipRenounced is a free log retrieval operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_PresaleFirst *PresaleFirstFilterer) FilterOwnershipRenounced(opts *bind.FilterOpts, previousOwner []common.Address) (*PresaleFirstOwnershipRenouncedIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -1068,7 +1068,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterOwnershipRenounced(opts *bind.F
 
 // WatchOwnershipRenounced is a free log subscription operation binding the contract event 0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820.
 //
-// Solidity: event OwnershipRenounced(previousOwner indexed address)
+// Solidity: e OwnershipRenounced(previousOwner indexed address)
 func (_PresaleFirst *PresaleFirstFilterer) WatchOwnershipRenounced(opts *bind.WatchOpts, sink chan<- *PresaleFirstOwnershipRenounced, previousOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -1184,7 +1184,7 @@ type PresaleFirstOwnershipTransferred struct {
 
 // FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_PresaleFirst *PresaleFirstFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*PresaleFirstOwnershipTransferredIterator, error) {
 
 	var previousOwnerRule []interface{}
@@ -1205,7 +1205,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterOwnershipTransferred(opts *bind
 
 // WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
 //
-// Solidity: event OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
+// Solidity: e OwnershipTransferred(previousOwner indexed address, newOwner indexed address)
 func (_PresaleFirst *PresaleFirstFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *PresaleFirstOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
 
 	var previousOwnerRule []interface{}
@@ -1323,7 +1323,7 @@ type PresaleFirstPause struct {
 
 // FilterPause is a free log retrieval operation binding the contract event 0x6985a02210a168e66602d3235cb6db0e70f92b3ba4d376a33c0f3d9434bff625.
 //
-// Solidity: event Pause()
+// Solidity: e Pause()
 func (_PresaleFirst *PresaleFirstFilterer) FilterPause(opts *bind.FilterOpts) (*PresaleFirstPauseIterator, error) {
 
 	logs, sub, err := _PresaleFirst.contract.FilterLogs(opts, "Pause")
@@ -1335,7 +1335,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterPause(opts *bind.FilterOpts) (*
 
 // WatchPause is a free log subscription operation binding the contract event 0x6985a02210a168e66602d3235cb6db0e70f92b3ba4d376a33c0f3d9434bff625.
 //
-// Solidity: event Pause()
+// Solidity: e Pause()
 func (_PresaleFirst *PresaleFirstFilterer) WatchPause(opts *bind.WatchOpts, sink chan<- *PresaleFirstPause) (event.Subscription, error) {
 
 	logs, sub, err := _PresaleFirst.contract.WatchLogs(opts, "Pause")
@@ -1446,7 +1446,7 @@ type PresaleFirstRefund struct {
 
 // FilterRefund is a free log retrieval operation binding the contract event 0xbb28353e4598c3b9199101a66e0989549b659a59a54d2c27fbb183f1932c8e6d.
 //
-// Solidity: event Refund(_to indexed address, _amount uint256)
+// Solidity: e Refund(_to indexed address, _amount uint256)
 func (_PresaleFirst *PresaleFirstFilterer) FilterRefund(opts *bind.FilterOpts, _to []common.Address) (*PresaleFirstRefundIterator, error) {
 
 	var _toRule []interface{}
@@ -1463,7 +1463,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterRefund(opts *bind.FilterOpts, _
 
 // WatchRefund is a free log subscription operation binding the contract event 0xbb28353e4598c3b9199101a66e0989549b659a59a54d2c27fbb183f1932c8e6d.
 //
-// Solidity: event Refund(_to indexed address, _amount uint256)
+// Solidity: e Refund(_to indexed address, _amount uint256)
 func (_PresaleFirst *PresaleFirstFilterer) WatchRefund(opts *bind.WatchOpts, sink chan<- *PresaleFirstRefund, _to []common.Address) (event.Subscription, error) {
 
 	var _toRule []interface{}
@@ -1579,7 +1579,7 @@ type PresaleFirstRelease struct {
 
 // FilterRelease is a free log retrieval operation binding the contract event 0xf6334794522b9db534a812aaae1af828a2e96aac68473b58e36d7d0bfd67477b.
 //
-// Solidity: event Release(_to indexed address, _amount uint256)
+// Solidity: e Release(_to indexed address, _amount uint256)
 func (_PresaleFirst *PresaleFirstFilterer) FilterRelease(opts *bind.FilterOpts, _to []common.Address) (*PresaleFirstReleaseIterator, error) {
 
 	var _toRule []interface{}
@@ -1596,7 +1596,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterRelease(opts *bind.FilterOpts, 
 
 // WatchRelease is a free log subscription operation binding the contract event 0xf6334794522b9db534a812aaae1af828a2e96aac68473b58e36d7d0bfd67477b.
 //
-// Solidity: event Release(_to indexed address, _amount uint256)
+// Solidity: e Release(_to indexed address, _amount uint256)
 func (_PresaleFirst *PresaleFirstFilterer) WatchRelease(opts *bind.WatchOpts, sink chan<- *PresaleFirstRelease, _to []common.Address) (event.Subscription, error) {
 
 	var _toRule []interface{}
@@ -1712,7 +1712,7 @@ type PresaleFirstRoleAdded struct {
 
 // FilterRoleAdded is a free log retrieval operation binding the contract event 0xbfec83d64eaa953f2708271a023ab9ee82057f8f3578d548c1a4ba0b5b700489.
 //
-// Solidity: event RoleAdded(addr address, roleName string)
+// Solidity: e RoleAdded(addr address, roleName string)
 func (_PresaleFirst *PresaleFirstFilterer) FilterRoleAdded(opts *bind.FilterOpts) (*PresaleFirstRoleAddedIterator, error) {
 
 	logs, sub, err := _PresaleFirst.contract.FilterLogs(opts, "RoleAdded")
@@ -1724,7 +1724,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterRoleAdded(opts *bind.FilterOpts
 
 // WatchRoleAdded is a free log subscription operation binding the contract event 0xbfec83d64eaa953f2708271a023ab9ee82057f8f3578d548c1a4ba0b5b700489.
 //
-// Solidity: event RoleAdded(addr address, roleName string)
+// Solidity: e RoleAdded(addr address, roleName string)
 func (_PresaleFirst *PresaleFirstFilterer) WatchRoleAdded(opts *bind.WatchOpts, sink chan<- *PresaleFirstRoleAdded) (event.Subscription, error) {
 
 	logs, sub, err := _PresaleFirst.contract.WatchLogs(opts, "RoleAdded")
@@ -1835,7 +1835,7 @@ type PresaleFirstRoleRemoved struct {
 
 // FilterRoleRemoved is a free log retrieval operation binding the contract event 0xd211483f91fc6eff862467f8de606587a30c8fc9981056f051b897a418df803a.
 //
-// Solidity: event RoleRemoved(addr address, roleName string)
+// Solidity: e RoleRemoved(addr address, roleName string)
 func (_PresaleFirst *PresaleFirstFilterer) FilterRoleRemoved(opts *bind.FilterOpts) (*PresaleFirstRoleRemovedIterator, error) {
 
 	logs, sub, err := _PresaleFirst.contract.FilterLogs(opts, "RoleRemoved")
@@ -1847,7 +1847,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterRoleRemoved(opts *bind.FilterOp
 
 // WatchRoleRemoved is a free log subscription operation binding the contract event 0xd211483f91fc6eff862467f8de606587a30c8fc9981056f051b897a418df803a.
 //
-// Solidity: event RoleRemoved(addr address, roleName string)
+// Solidity: e RoleRemoved(addr address, roleName string)
 func (_PresaleFirst *PresaleFirstFilterer) WatchRoleRemoved(opts *bind.WatchOpts, sink chan<- *PresaleFirstRoleRemoved) (event.Subscription, error) {
 
 	logs, sub, err := _PresaleFirst.contract.WatchLogs(opts, "RoleRemoved")
@@ -1956,7 +1956,7 @@ type PresaleFirstUnpause struct {
 
 // FilterUnpause is a free log retrieval operation binding the contract event 0x7805862f689e2f13df9f062ff482ad3ad112aca9e0847911ed832e158c525b33.
 //
-// Solidity: event Unpause()
+// Solidity: e Unpause()
 func (_PresaleFirst *PresaleFirstFilterer) FilterUnpause(opts *bind.FilterOpts) (*PresaleFirstUnpauseIterator, error) {
 
 	logs, sub, err := _PresaleFirst.contract.FilterLogs(opts, "Unpause")
@@ -1968,7 +1968,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterUnpause(opts *bind.FilterOpts) 
 
 // WatchUnpause is a free log subscription operation binding the contract event 0x7805862f689e2f13df9f062ff482ad3ad112aca9e0847911ed832e158c525b33.
 //
-// Solidity: event Unpause()
+// Solidity: e Unpause()
 func (_PresaleFirst *PresaleFirstFilterer) WatchUnpause(opts *bind.WatchOpts, sink chan<- *PresaleFirstUnpause) (event.Subscription, error) {
 
 	logs, sub, err := _PresaleFirst.contract.WatchLogs(opts, "Unpause")
@@ -2078,7 +2078,7 @@ type PresaleFirstWhitelistedAddressAdded struct {
 
 // FilterWhitelistedAddressAdded is a free log retrieval operation binding the contract event 0xd1bba68c128cc3f427e5831b3c6f99f480b6efa6b9e80c757768f6124158cc3f.
 //
-// Solidity: event WhitelistedAddressAdded(addr address)
+// Solidity: e WhitelistedAddressAdded(addr address)
 func (_PresaleFirst *PresaleFirstFilterer) FilterWhitelistedAddressAdded(opts *bind.FilterOpts) (*PresaleFirstWhitelistedAddressAddedIterator, error) {
 
 	logs, sub, err := _PresaleFirst.contract.FilterLogs(opts, "WhitelistedAddressAdded")
@@ -2090,7 +2090,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterWhitelistedAddressAdded(opts *b
 
 // WatchWhitelistedAddressAdded is a free log subscription operation binding the contract event 0xd1bba68c128cc3f427e5831b3c6f99f480b6efa6b9e80c757768f6124158cc3f.
 //
-// Solidity: event WhitelistedAddressAdded(addr address)
+// Solidity: e WhitelistedAddressAdded(addr address)
 func (_PresaleFirst *PresaleFirstFilterer) WatchWhitelistedAddressAdded(opts *bind.WatchOpts, sink chan<- *PresaleFirstWhitelistedAddressAdded) (event.Subscription, error) {
 
 	logs, sub, err := _PresaleFirst.contract.WatchLogs(opts, "WhitelistedAddressAdded")
@@ -2200,7 +2200,7 @@ type PresaleFirstWhitelistedAddressRemoved struct {
 
 // FilterWhitelistedAddressRemoved is a free log retrieval operation binding the contract event 0xf1abf01a1043b7c244d128e8595cf0c1d10743b022b03a02dffd8ca3bf729f5a.
 //
-// Solidity: event WhitelistedAddressRemoved(addr address)
+// Solidity: e WhitelistedAddressRemoved(addr address)
 func (_PresaleFirst *PresaleFirstFilterer) FilterWhitelistedAddressRemoved(opts *bind.FilterOpts) (*PresaleFirstWhitelistedAddressRemovedIterator, error) {
 
 	logs, sub, err := _PresaleFirst.contract.FilterLogs(opts, "WhitelistedAddressRemoved")
@@ -2212,7 +2212,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterWhitelistedAddressRemoved(opts 
 
 // WatchWhitelistedAddressRemoved is a free log subscription operation binding the contract event 0xf1abf01a1043b7c244d128e8595cf0c1d10743b022b03a02dffd8ca3bf729f5a.
 //
-// Solidity: event WhitelistedAddressRemoved(addr address)
+// Solidity: e WhitelistedAddressRemoved(addr address)
 func (_PresaleFirst *PresaleFirstFilterer) WatchWhitelistedAddressRemoved(opts *bind.WatchOpts, sink chan<- *PresaleFirstWhitelistedAddressRemoved) (event.Subscription, error) {
 
 	logs, sub, err := _PresaleFirst.contract.WatchLogs(opts, "WhitelistedAddressRemoved")
@@ -2323,7 +2323,7 @@ type PresaleFirstWithdraw struct {
 
 // FilterWithdraw is a free log retrieval operation binding the contract event 0x884edad9ce6fa2440d8a54cc123490eb96d2768479d49ff9c7366125a9424364.
 //
-// Solidity: event Withdraw(_from indexed address, _amount uint256)
+// Solidity: e Withdraw(_from indexed address, _amount uint256)
 func (_PresaleFirst *PresaleFirstFilterer) FilterWithdraw(opts *bind.FilterOpts, _from []common.Address) (*PresaleFirstWithdrawIterator, error) {
 
 	var _fromRule []interface{}
@@ -2340,7 +2340,7 @@ func (_PresaleFirst *PresaleFirstFilterer) FilterWithdraw(opts *bind.FilterOpts,
 
 // WatchWithdraw is a free log subscription operation binding the contract event 0x884edad9ce6fa2440d8a54cc123490eb96d2768479d49ff9c7366125a9424364.
 //
-// Solidity: event Withdraw(_from indexed address, _amount uint256)
+// Solidity: e Withdraw(_from indexed address, _amount uint256)
 func (_PresaleFirst *PresaleFirstFilterer) WatchWithdraw(opts *bind.WatchOpts, sink chan<- *PresaleFirstWithdraw, _from []common.Address) (event.Subscription, error) {
 
 	var _fromRule []interface{}

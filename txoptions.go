@@ -76,7 +76,7 @@ func getPrivateKeyOpt(key string) (opt *bind.TransactOpts, err error) {
 }
 
 func GetPrivateKeyOpts(opt *ProviderOption) (opts TxOpts, err error) {
-	for i, key := range opt.Keys {
+	for _, key := range opt.Keys {
 		var txOpts *bind.TransactOpts
 		if txOpts, err = getPrivateKeyOpt(key); err != nil {
 			return

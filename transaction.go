@@ -2,11 +2,14 @@ package ethornge
 
 import (
 	"fmt"
+	"log"
+	"math/big"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/ethereum/go-ethereum/params"
 )
 
 func NewSignedTransaction(
@@ -45,4 +48,24 @@ func NewSignedTransactionWithData(
 	}
 	var tx = types.NewTransaction(nonce, to, opts.Value, opts.GasLimit, opts.GasPrice, data)
 	return opts.Signer(types.HomesteadSigner{}, opts.From, tx)
+}
+
+func PrintTxResult(opts bind.TransactOpts, receipt types.Receipt) {
+	var status string
+	if receipt.Status == 0 {
+		status = "Failed"
+	} else {
+		status = "Success"
+	}
+
+	var gasPrice = new(big.Int).Div(
+		opts.GasPrice,
+		big.NewInt(params.Shannon),
+	)
+
+	log.Println("TxHash           : ", receipt.TxHash.Hex())
+	log.Println("TxReceipt Status : ", status)
+	log.Println("Gas Limit        : ", opts.GasLimit)
+	log.Println("Gas Used         : ", receipt.GasUsed)
+	log.Println("Gas Price        : ", gasPrice, "Gwei")
 }

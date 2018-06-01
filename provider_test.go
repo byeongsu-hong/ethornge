@@ -24,7 +24,7 @@ func TestLedgerProvider(t *testing.T) {
 	var ganache *exec.Cmd
 	var keys []string
 	var err error
-	if ganache, keys, err = testornge.Launch(); err != nil {
+	if ganache, keys, err = testornge.Launch(8545, 10000); err != nil {
 		t.Error("Error : ", err)
 		return
 	}

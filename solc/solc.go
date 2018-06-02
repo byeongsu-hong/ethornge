@@ -1,10 +1,12 @@
-package ethornge
+package solc
 
 import (
 	"os"
 	"strings"
 
 	"encoding/json"
+
+	"../utils"
 
 	"path"
 
@@ -33,12 +35,12 @@ func exportBind(contracts map[string]*compiler.Contract, out string) (err error)
 
 		var data []byte
 
-		if data, err = ReadFile(abiPath); err != nil {
+		if data, err = utils.ReadFile(abiPath); err != nil {
 			return
 		}
 		abis = []string{string(data)}
 
-		if data, err = ReadFile(binPath); err != nil {
+		if data, err = utils.ReadFile(binPath); err != nil {
 			return
 		}
 		bins = []string{string(data)}
@@ -49,7 +51,7 @@ func exportBind(contracts map[string]*compiler.Contract, out string) (err error)
 			return
 		}
 
-		if err = WriteFile(bindPath, []byte(code)); err != nil {
+		if err = utils.WriteFile(bindPath, []byte(code)); err != nil {
 			return
 		}
 	}
@@ -60,7 +62,7 @@ func exportBIN(contracts map[string]*compiler.Contract, out string) (err error) 
 	for n, contract := range contracts {
 		var file = strings.Split(n, ":")[1] + ".bin"
 
-		if err = WriteFile(
+		if err = utils.WriteFile(
 			path.Join(out, outPath, file),
 			[]byte(contract.Code),
 		); err != nil {
@@ -83,7 +85,7 @@ func exportABI(contracts map[string]*compiler.Contract, out string) (err error) 
 			return
 		}
 
-		if err = WriteFile(
+		if err = utils.WriteFile(
 			path.Join(out, outPath, file),
 			data,
 		); err != nil {
@@ -98,17 +100,17 @@ func Compile(solc string, dir string, out string) (err error) {
 	var contracts map[string]*compiler.Contract
 
 	// Create Directory
-	if err = CreateDir(path.Join(out, outPath)); err != nil {
+	if err = utils.CreateDir(path.Join(out, outPath)); err != nil {
 		return
 	}
 
-	if err = CreateDir(path.Join(out, adtPath)); err != nil {
+	if err = utils.CreateDir(path.Join(out, adtPath)); err != nil {
 		return
 	}
 
 	// Get solidity files from folder
 	var sources []string
-	if sources, err = GetDirElems(dir); err != nil {
+	if sources, err = utils.GetDirElems(dir); err != nil {
 		return
 	}
 

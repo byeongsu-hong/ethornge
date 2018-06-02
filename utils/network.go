@@ -1,10 +1,11 @@
-package ethornge
+package utils
 
 const (
-	MAINNET = 1
-	ROPSTEN = 3
-	RINKEBY = 4
-	KOVAN   = 42
+	MAINNET  = 1
+	ROPSTEN  = 3
+	RINKEBY  = 4
+	KOVAN    = 42
+	ETHORNGE = 2470
 )
 
 func ConvertId(id int) string {
@@ -17,6 +18,8 @@ func ConvertId(id int) string {
 		return "rinkeby"
 	case KOVAN:
 		return "koven"
+	case ETHORNGE:
+		return "ethornge"
 	default:
 		return ""
 	}

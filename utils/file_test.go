@@ -1,4 +1,4 @@
-package ethornge
+package utils
 
 import (
 	"fmt"
@@ -19,8 +19,8 @@ var TestData = TestStruct{
 	C: "C",
 	D: "D",
 }
-var TestFile = "test/test.txt"
-var TestCSV = "test/test.csv"
+var TestFile = "../test/test.txt"
+var TestCSV = "../test/test.csv"
 
 func TestCreateFile(t *testing.T) {
 	var err error

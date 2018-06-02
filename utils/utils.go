@@ -1,4 +1,4 @@
-package ethornge
+package utils
 
 import (
 	"math/big"

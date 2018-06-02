@@ -1,4 +1,4 @@
-package ethornge
+package provider
 
 import (
 	"fmt"

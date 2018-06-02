@@ -1,20 +1,21 @@
-package ethornge
+package provider
 
 import (
 	"context"
 
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
 var (
-	DefaultLedgerOption = &ProviderOption{
+	DefaultLedgerOption = &Option{
 		Path:  "m/44'/60'/0'/",
 		Start: 0,
 		End:   1,
 	}
 )
 
-type ProviderOption struct {
+type Option struct {
 	// Common option
 	URL       string
 	Context   context.Context
@@ -31,29 +32,29 @@ type ProviderOption struct {
 }
 
 type Provider struct {
-	Client   *ethclient.Client
+	*ethclient.Client
 	Context  context.Context
-	Accounts TxOpts
+	Accounts []*bind.TransactOpts
 }
 
-func LedgerProvider(opt *ProviderOption) (provider *Provider, err error) {
+func LedgerProvider(opt *Option) (provider *Provider, err error) {
 	provider = new(Provider)
 	provider.Context = opt.Context
 	provider.Client, err = ethclient.Dial(opt.URL)
 	if err != nil {
 		return
 	}
-	provider.Accounts, err = GetLedgerOpts(opt)
+	provider.Accounts, err = getLedgerOpts(opt)
 	return
 }
 
-func PrivateKeyProvider(opt *ProviderOption) (provider *Provider, err error) {
+func PrivateKeyProvider(opt *Option) (provider *Provider, err error) {
 	provider = new(Provider)
 	provider.Context = opt.Context
 	provider.Client, err = ethclient.Dial(opt.URL)
 	if err != nil {
 		return
 	}
-	provider.Accounts, err = GetPrivateKeyOpts(opt)
+	provider.Accounts, err = getPrivateKeyOpts(opt)
 	return
 }

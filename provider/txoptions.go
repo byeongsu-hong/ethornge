@@ -1,4 +1,4 @@
-package ethornge
+package provider
 
 import (
 	"fmt"
@@ -17,8 +17,6 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-type TxOpts []*bind.TransactOpts
-
 func getLedgerOpt(account accounts.Account, wallet accounts.Wallet) *bind.TransactOpts {
 	return &bind.TransactOpts{
 		From: account.Address,
@@ -28,7 +26,7 @@ func getLedgerOpt(account accounts.Account, wallet accounts.Wallet) *bind.Transa
 	}
 }
 
-func GetLedgerOpts(opt *ProviderOption) (opts TxOpts, err error) {
+func getLedgerOpts(opt *Option) (opts []*bind.TransactOpts, err error) {
 	var hub *usbwallet.Hub
 	if hub, err = usbwallet.NewLedgerHub(); err != nil {
 		return
@@ -55,7 +53,9 @@ func GetLedgerOpts(opt *ProviderOption) (opts TxOpts, err error) {
 			return
 		}
 
-		opts = append(opts, getLedgerOpt(account, wallet))
+		var txOpt = getLedgerOpt(account, wallet)
+		txOpt.Context = opt.Context
+		opts = append(opts, txOpt)
 	}
 	return
 }
@@ -75,13 +75,15 @@ func getPrivateKeyOpt(key string) (opt *bind.TransactOpts, err error) {
 	return
 }
 
-func GetPrivateKeyOpts(opt *ProviderOption) (opts TxOpts, err error) {
+func getPrivateKeyOpts(opt *Option) (opts []*bind.TransactOpts, err error) {
 	for _, key := range opt.Keys {
-		var txOpts *bind.TransactOpts
-		if txOpts, err = getPrivateKeyOpt(key); err != nil {
+		var txOpt *bind.TransactOpts
+		if txOpt, err = getPrivateKeyOpt(key); err != nil {
 			return
 		}
-		opts = append(opts, txOpts)
+
+		txOpt.Context = opt.Context
+		opts = append(opts, txOpt)
 	}
 	return
 }

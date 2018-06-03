@@ -8,8 +8,6 @@ import (
 
 	"../ganache"
 
-	"math/big"
-
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/frostornge/ethornge/test/build/adapter"
@@ -19,14 +17,11 @@ var ctx = context.Background()
 
 func TestPrivateKeyProvider(t *testing.T) {
 	var (
-		err      error
-		cmd      *exec.Cmd
-		accounts = ganache.GetDefaultAccounts()
+		err error
+		cmd *exec.Cmd
+		opt = &ganache.Option{Accounts: ganache.GetDefaultAccounts()}
 	)
-	if cmd, err = ganache.Launch("ganache-cli", &ganache.Option{
-		Port:     big.NewInt(5455),
-		Accounts: accounts,
-	}); err != nil {
+	if cmd, err = ganache.Launch("ganache-cli", opt); err != nil {
 		t.Error(err)
 		return
 	}
@@ -34,9 +29,9 @@ func TestPrivateKeyProvider(t *testing.T) {
 
 	var pv *Provider
 	if pv, err = PrivateKeyProvider(&Option{
-		URL:     ganache.DefaultURL,
+		URL:     opt.Url(),
 		Context: ctx,
-		Keys:    accounts.GetKeys(),
+		Keys:    opt.Accounts.GetKeys(),
 	}); err != nil {
 		t.Error("Error : ", err)
 		return
@@ -46,7 +41,7 @@ func TestPrivateKeyProvider(t *testing.T) {
 	var token *adapter.MintableToken
 	var addr common.Address
 	var tx *types.Transaction
-	if addr, tx, token, err = adapter.DeployMintableToken(pv.Accounts[0], pv); err != nil {
+	if addr, tx, token, err = adapter.DeployMintableToken(pv.Accounts[0], pv.Client); err != nil {
 		t.Error("Error : ", err)
 		return
 	}

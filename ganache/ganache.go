@@ -5,36 +5,49 @@ import (
 
 	"fmt"
 
-	"log"
-	"strings"
-	"time"
-
 	"bytes"
 
-	"github.com/ethereum/go-ethereum/ethclient"
+	"strings"
+	"time"
 )
 
 const (
-	attempt = 5
-	message = "refused"
+	attempt = 20
+	message = "Listening on localhost:"
 )
-
-const DefaultURL = "http://localhost:8545"
 
 func Launch(ganache string, opt *Option) (cmd *exec.Cmd, err error) {
 	if opt.Accounts == nil {
 		err = fmt.Errorf("Please insert account settings")
 		return
 	}
-	if checkPortAlreadyUsed(Convert(opt.Port, "8545")) {
+	var port = Convert(opt.Port, "8545")
+	if checkPortAlreadyUsed(port) {
 		err = fmt.Errorf("Port already used")
 		return
 	}
+	var stdout bytes.Buffer
 	cmd = exec.Command("bash", "-c", opt.generate(ganache))
+	cmd.Stdout = &stdout
 	if err = cmd.Start(); err != nil {
 		return
 	}
-	err = waitLaunched("http://localhost:" + Convert(opt.Port, "8545"))
+	var cnt = 0
+	for !strings.Contains(stdout.String(), message+fmt.Sprint(port)) {
+		if cnt == attempt {
+			err = fmt.Errorf("Launch timeout")
+			return
+		}
+		time.Sleep(1 * time.Second)
+		cnt++
+	}
+	return
+}
+
+func isEmpty(bs []byte) (isEmpty bool) {
+	for _, b := range bs {
+		isEmpty = b == 0
+	}
 	return
 }
 
@@ -44,25 +57,4 @@ func checkPortAlreadyUsed(port string) (isUsed bool) {
 	cmd.Stdout = &stdout
 	cmd.Run()
 	return len(stdout.String()) != 0
-}
-
-func waitLaunched(rawurl string) (err error) {
-	var count = 0
-CONNECT:
-	time.Sleep(300 * time.Millisecond)
-	if _, err = ethclient.Dial(rawurl); err != nil {
-		log.Println("1")
-		if strings.Contains(err.Error(), message) {
-			log.Println("Attempt", count+1)
-			if count == attempt {
-				log.Println("Timeout")
-				return
-			}
-			count++
-			goto CONNECT
-		} else {
-			return
-		}
-	}
-	return
 }

@@ -2,14 +2,12 @@ package provider
 
 import (
 	"context"
-	"log"
 	"os/exec"
 	"testing"
 
 	"../ganache"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/frostornge/ethornge/test/build/adapter"
 )
 
@@ -38,22 +36,20 @@ func TestPrivateKeyProvider(t *testing.T) {
 	}
 	defer pv.Close()
 
-	var token *adapter.MintableToken
-	var addr common.Address
-	var tx *types.Transaction
-	if addr, tx, token, err = adapter.DeployMintableToken(pv.Accounts[0], pv.Client); err != nil {
+	var mint *adapter.MintableToken
+	if _, _, mint, err = adapter.DeployMintableToken(pv.Accounts[0], pv.Client); err != nil {
 		t.Error("Error : ", err)
 		return
 	}
-	log.Println("Mintable Token :", addr.Hex())
-	log.Println("TxHash :", tx.Hash().Hex())
 
 	var owner common.Address
-	if owner, err = token.Owner(nil); err != nil {
+	if owner, err = mint.Owner(nil); err != nil {
 		t.Error("Error : ", err)
 		return
 	}
-	log.Println(owner.Hex())
+	if owner != pv.Accounts[0].From {
+		t.Error("Deployer and Contract owner mismatching")
+	}
 }
 
 //func TestLedgerProvider(t *testing.T) {

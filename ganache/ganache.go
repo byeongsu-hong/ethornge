@@ -44,13 +44,6 @@ func Launch(ganache string, opt *Option) (cmd *exec.Cmd, err error) {
 	return
 }
 
-func isEmpty(bs []byte) (isEmpty bool) {
-	for _, b := range bs {
-		isEmpty = b == 0
-	}
-	return
-}
-
 func checkPortAlreadyUsed(port string) (isUsed bool) {
 	var stdout bytes.Buffer
 	var cmd = exec.Command("lsof", "-t", "-i", ":"+port)

@@ -50,7 +50,7 @@ func NewSignedTransactionWithData(
 	return opts.Signer(types.HomesteadSigner{}, opts.From, tx)
 }
 
-func PrintTxResult(opts bind.TransactOpts, receipt types.Receipt) {
+func PrintTxResult(opts *bind.TransactOpts, receipt *types.Receipt) {
 	var status string
 	if receipt.Status == 0 {
 		status = "Failed"

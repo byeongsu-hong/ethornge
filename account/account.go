@@ -5,6 +5,9 @@ import (
 
 	"../utils"
 
+	"fmt"
+	"path/filepath"
+
 	"github.com/ethereum/go-ethereum/common"
 )
 
@@ -26,11 +29,44 @@ var (
 
 type Account struct {
 	PrivateKey string
+	PassPhrase string
 	Address    common.Address
 	Balance    *big.Int
 }
 
-type Accounts []Account
+func (account *Account) Export(key string, pass string) (err error) {
+	if err = utils.WriteFile(key, []byte(account.PrivateKey)); err != nil {
+		return
+	}
+	return utils.WriteFile(pass, []byte(account.PassPhrase))
+}
+
+func NewAccount(key string, pass string, balance *big.Int) (*Account, error) {
+	var addr, err = utils.KeyToAddr(key)
+	return &Account{
+		PrivateKey: key,
+		PassPhrase: pass,
+		Address:    addr,
+		Balance:    balance,
+	}, err
+}
+
+type Accounts []*Account
+
+func (accounts Accounts) Export(path string) (err error) {
+	if err = utils.CreateDir(path); err != nil {
+		return
+	}
+	for index, account := range accounts {
+		if err = account.Export(
+			filepath.Join(path, fmt.Sprint(index+1)+"pv.txt"),
+			filepath.Join(path, fmt.Sprint(index+1)+"pw.txt"),
+		); err != nil {
+			return
+		}
+	}
+	return
+}
 
 func (accounts Accounts) GetKeys() (keys []string) {
 	for _, account := range accounts {
@@ -46,18 +82,9 @@ func (accounts Accounts) GetAddrs() (addrs []common.Address) {
 	return
 }
 
-func getAccount(key string, balance *big.Int) (Account, error) {
-	var addr, err = utils.KeyToAddr(key)
-	return Account{
-		PrivateKey: key,
-		Address:    addr,
-		Balance:    balance,
-	}, err
-}
-
 func GetDefaultAccounts() (accounts Accounts) {
 	for _, key := range DefaultPrivateKeys {
-		var account, _ = getAccount(key, DefaultBalance)
+		var account, _ = NewAccount(key, "foobar", DefaultBalance)
 		accounts = append(accounts, account)
 	}
 	return

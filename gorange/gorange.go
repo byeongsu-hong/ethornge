@@ -1,17 +1,15 @@
 package gorange
 
-import (
-	"log"
+import "../utils"
 
-	"github.com/ethereum/go-ethereum/core"
-)
-
-func Launch(opt *GenesisOption) (err error) {
-	var genesis *core.Genesis
-	if genesis, err = GetCliqueGenesis(opt); err != nil {
+func Launch(gnOpt *GenesisOption, gethOpt *GethOption) (err error) {
+	if err = utils.CreateDir(gethOpt.DataDir); err != nil {
 		return
 	}
 
-	log.Println(genesis.MarshalJSON())
-	return
+	if err = gnOpt.Accounts.Export(gethOpt.AccountDir); err != nil {
+		return
+	}
+
+	return gnOpt.init(gethOpt)
 }

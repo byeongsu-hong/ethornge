@@ -5,22 +5,42 @@ import (
 	"testing"
 
 	"../account"
+	"../utils"
 
 	"github.com/ethereum/go-ethereum/common"
 )
 
+const (
+	testGenesisPath = "../test/gorange/genesis.json"
+	testAccountDir  = "../test/gorange/account/"
+	testGethDatadir = "../test/gorange/datadir/"
+)
+
 func TestLaunch(t *testing.T) {
-	var err error
-	var accounts = account.GetDefaultAccounts()
-	if err = Launch(&GenesisOption{
-		Period:  5,
-		ChainId: big.NewInt(4349),
-		Signers: []common.Address{
-			accounts[0].Address,
-			accounts[1].Address,
-		},
-		Accounts: accounts,
-	}); err != nil {
+	utils.RemoveDir("../test/gorange")
+
+	var (
+		err      error
+		accounts = account.GetDefaultAccounts()
+		gnOpt    = &GenesisOption{
+			FilePath:  testGenesisPath,
+			Consensus: true,
+			Period:    5,
+			ChainId:   big.NewInt(4349),
+			Signers: []common.Address{
+				accounts[0].Address,
+				accounts[1].Address,
+			},
+			Accounts: accounts,
+		}
+		gethOpt = &GethOption{
+			Geth:       "geth",
+			DataDir:    testGethDatadir,
+			AccountDir: testAccountDir,
+		}
+	)
+
+	if err = Launch(gnOpt, gethOpt); err != nil {
 		t.Error(err)
 		return
 	}

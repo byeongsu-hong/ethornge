@@ -1,32 +1,26 @@
 package gorange
 
 import (
+	"bytes"
+	"fmt"
 	"math/big"
 	"time"
 
-	"bytes"
-
-	"fmt"
+	"../account"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/params"
 )
 
-type Account struct {
-	PrivateKey string
-	Address    common.Address
-	Balance    *big.Int
-}
-
-type Option struct {
+type GenesisOption struct {
 	Period   uint64
 	ChainId  *big.Int
 	Signers  []common.Address
-	Accounts []Account
+	Accounts []account.Account
 }
 
-func GetCliqueGenesis(opt *Option) (genesis *core.Genesis, err error) {
+func GetCliqueGenesis(opt *GenesisOption) (genesis *core.Genesis, err error) {
 	if opt == nil {
 		err = fmt.Errorf("nil option")
 		return

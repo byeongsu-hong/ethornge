@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"testing"
 
+	"../account"
 	"../ganache"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -17,7 +18,7 @@ func TestPrivateKeyProvider(t *testing.T) {
 	var (
 		err error
 		cmd *exec.Cmd
-		opt = &ganache.Option{Accounts: ganache.GetDefaultAccounts()}
+		opt = &ganache.Option{Accounts: account.GetDefaultAccounts()}
 	)
 	if cmd, err = ganache.Launch("ganache-cli", opt); err != nil {
 		t.Error(err)

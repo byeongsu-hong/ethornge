@@ -1,17 +1,16 @@
 package ganache
 
 import (
-	"math/big"
-
 	"fmt"
-
+	"math/big"
 	"strings"
 
+	"../account"
 	"../utils"
 )
 
 type Option struct {
-	Accounts  Accounts
+	Accounts  account.Accounts
 	Port      *big.Int
 	NetworkId *big.Int
 }

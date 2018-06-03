@@ -1,12 +1,12 @@
 package ganache
 
 import (
+	"context"
+	"math/big"
 	"os/exec"
 	"testing"
 
-	"context"
-	"math/big"
-
+	"../account"
 	"../provider"
 )
 
@@ -15,7 +15,7 @@ func TestLaunch(t *testing.T) {
 		err error
 		cmd *exec.Cmd
 		opt = &Option{
-			Accounts: GetDefaultAccounts(),
+			Accounts: account.GetDefaultAccounts(),
 			Port:     big.NewInt(8546),
 		}
 	)

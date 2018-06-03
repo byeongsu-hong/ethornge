@@ -151,15 +151,6 @@
     {
         "constant": false,
         "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [],
         "name": "withdrawEther",
         "outputs": [],
         "payable": false,
@@ -553,18 +544,6 @@
             }
         ],
         "name": "WithdrawEther",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "name": "previousOwner",
-                "type": "address"
-            }
-        ],
-        "name": "OwnershipRenounced",
         "type": "event"
     },
     {

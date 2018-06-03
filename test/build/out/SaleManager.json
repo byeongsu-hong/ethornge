@@ -1,14 +1,5 @@
 [
     {
-        "constant": false,
-        "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
         "constant": true,
         "inputs": [],
         "name": "owner",
@@ -102,30 +93,6 @@
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "constructor"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "name": "_addr",
-                "type": "address"
-            }
-        ],
-        "name": "Fail",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "name": "previousOwner",
-                "type": "address"
-            }
-        ],
-        "name": "OwnershipRenounced",
-        "type": "event"
     },
     {
         "anonymous": false,

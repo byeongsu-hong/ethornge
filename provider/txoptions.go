@@ -68,8 +68,11 @@ func getKeystoreOpt(opt *Option) (opts *bind.TransactOpts, err error) {
 	if r, err = os.Open(opt.Keypath); err != nil {
 		return
 	}
-
-	return bind.NewTransactor(r, opt.Password)
+	if opts, err = bind.NewTransactor(r, opt.Password); err != nil {
+		return
+	}
+	opts.Context = opt.Context
+	return
 }
 
 func getPrivateKeyOpt(key string) (opt *bind.TransactOpts, err error) {

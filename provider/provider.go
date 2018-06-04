@@ -30,6 +30,10 @@ type Option struct {
 	// PrivateKey provider Option
 	Keys []string
 
+	// Keystore provider Option
+	Keypath  string
+	Password string
+
 	// Ledger provider Option
 	Path  string
 	Start int
@@ -50,6 +54,21 @@ func LedgerProvider(opt *Option) (provider *Provider, err error) {
 		return
 	}
 	provider.Accounts, err = getLedgerOpts(opt)
+	return
+}
+
+func KeystoreProvider(opt *Option) (provider *Provider, err error) {
+	provider = new(Provider)
+	provider.Context = opt.Context
+	provider.Client, err = ethclient.Dial(opt.URL)
+	if err != nil {
+		return
+	}
+	var account *bind.TransactOpts
+	if account, err = getKeystoreOpt(opt); err != nil {
+		return
+	}
+	provider.Accounts = []*bind.TransactOpts{account}
 	return
 }
 
@@ -174,4 +193,12 @@ func (pv *Provider) EstimateGas(msg ethereum.CallMsg) (uint64, error) {
 
 func (pv *Provider) SendTransaction(tx *types.Transaction) error {
 	return pv.Client.SendTransaction(pv.Context, tx)
+}
+
+func (pv *Provider) WaitMined(tx *types.Transaction) (*types.Receipt, error) {
+	return bind.WaitMined(pv.Context, pv.Client, tx)
+}
+
+func (pv *Provider) WaitDeployed(tx *types.Transaction) (common.Address, error) {
+	return bind.WaitDeployed(pv.Context, pv.Client, tx)
 }

@@ -9,6 +9,9 @@ import (
 	"crypto/ecdsa"
 	"encoding/hex"
 
+	"io"
+	"os"
+
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/usbwallet"
@@ -58,6 +61,15 @@ func getLedgerOpts(opt *Option) (opts []*bind.TransactOpts, err error) {
 		opts = append(opts, txOpt)
 	}
 	return
+}
+
+func getKeystoreOpt(opt *Option) (opts *bind.TransactOpts, err error) {
+	var r io.Reader
+	if r, err = os.Open(opt.Keypath); err != nil {
+		return
+	}
+
+	return bind.NewTransactor(r, opt.Password)
 }
 
 func getPrivateKeyOpt(key string) (opt *bind.TransactOpts, err error) {

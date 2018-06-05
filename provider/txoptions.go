@@ -1,16 +1,13 @@
 package provider
 
 import (
-	"fmt"
-	"strconv"
-
-	"math/big"
-
 	"crypto/ecdsa"
 	"encoding/hex"
-
+	"fmt"
 	"io"
+	"math/big"
 	"os"
+	"strconv"
 
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"

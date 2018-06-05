@@ -1,12 +1,9 @@
 package ganache
 
 import (
-	"os/exec"
-
-	"fmt"
-
 	"bytes"
-
+	"fmt"
+	"os/exec"
 	"strings"
 	"time"
 )

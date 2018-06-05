@@ -1,6 +1,6 @@
 package gorange
 
-import "../utils"
+import "github.com/frostornge/ethornge/utils"
 
 func Launch(gnOpt *GenesisOption, gethOpt *GethOption) (err error) {
 	if err = utils.CreateDir(gethOpt.DataDir); err != nil {

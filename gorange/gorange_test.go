@@ -4,10 +4,9 @@ import (
 	"math/big"
 	"testing"
 
-	"../account"
-	"../utils"
-
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/frostornge/ethornge/account"
+	"github.com/frostornge/ethornge/utils"
 )
 
 const (

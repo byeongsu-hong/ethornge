@@ -1,15 +1,13 @@
 package gorange
 
 import (
-	"os/exec"
-
-	"log"
-
 	"fmt"
+	"log"
+	"os/exec"
 	"path/filepath"
 	"sync"
 
-	"../account"
+	"github.com/frostornge/ethornge/account"
 )
 
 type WSConfig struct {

@@ -1,14 +1,12 @@
 package account
 
 import (
-	"math/big"
-
-	"../utils"
-
 	"fmt"
+	"math/big"
 	"path/filepath"
 
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/frostornge/ethornge/utils"
 )
 
 var (

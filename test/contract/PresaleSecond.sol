@@ -1,10 +1,11 @@
 pragma solidity ^0.4.23;
 
-import "../openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
-import "../openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
-import "../openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "../openzeppelin-solidity/contracts/ownership/Whitelist.sol";
-import "../openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-solidity/contracts/ownership/Whitelist.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
 contract PresaleSecond is Ownable {

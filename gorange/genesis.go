@@ -7,12 +7,11 @@ import (
 	"math/big"
 	"time"
 
-	"../account"
-	"../utils"
-
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostornge/ethornge/account"
+	"github.com/frostornge/ethornge/utils"
 )
 
 type Genesis core.Genesis

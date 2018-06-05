@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"../utils"
+	"github.com/frostornge/ethornge/utils"
 )
 
 var TestContractPath = "../test/contract"

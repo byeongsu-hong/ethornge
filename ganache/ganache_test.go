@@ -6,8 +6,8 @@ import (
 	"os/exec"
 	"testing"
 
-	"../account"
-	"../provider"
+	"github.com/frostornge/ethornge/account"
+	"github.com/frostornge/ethornge/provider"
 )
 
 func TestLaunch(t *testing.T) {

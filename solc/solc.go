@@ -1,17 +1,14 @@
 package solc
 
 import (
-	"os"
-	"strings"
-
 	"encoding/json"
-
-	"../utils"
-
+	"os"
 	"path"
+	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common/compiler"
+	"github.com/frostornge/ethornge/utils"
 )
 
 const (

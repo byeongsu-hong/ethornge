@@ -5,8 +5,8 @@ import (
 	"math/big"
 	"strings"
 
-	"../account"
-	"../utils"
+	"github.com/frostornge/ethornge/account"
+	"github.com/frostornge/ethornge/utils"
 )
 
 type Option struct {

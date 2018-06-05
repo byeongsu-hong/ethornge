@@ -49,7 +49,7 @@ type Provider struct {
 func LedgerProvider(opt *Option) (provider *Provider, err error) {
 	provider = new(Provider)
 	provider.Context = opt.Context
-	provider.Client, err = ethclient.Dial(opt.URL)
+	provider.Client, err = getClient(opt)
 	if err != nil {
 		return
 	}
@@ -60,7 +60,7 @@ func LedgerProvider(opt *Option) (provider *Provider, err error) {
 func KeystoreProvider(opt *Option) (provider *Provider, err error) {
 	provider = new(Provider)
 	provider.Context = opt.Context
-	provider.Client, err = ethclient.Dial(opt.URL)
+	provider.Client, err = getClient(opt)
 	if err != nil {
 		return
 	}
@@ -75,7 +75,7 @@ func KeystoreProvider(opt *Option) (provider *Provider, err error) {
 func PrivateKeyProvider(opt *Option) (provider *Provider, err error) {
 	provider = new(Provider)
 	provider.Context = opt.Context
-	provider.Client, err = ethclient.Dial(opt.URL)
+	provider.Client, err = getClient(opt)
 	if err != nil {
 		return
 	}

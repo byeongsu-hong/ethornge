@@ -19,6 +19,9 @@ func TestCompile(t *testing.T) {
 		"solc",
 		TestContractPath,
 		TestBuildPath,
+		"out",
+		"out",
+		"adt",
 	); err != nil {
 		t.Error("Error : ", err)
 	}
@@ -34,7 +37,7 @@ func TestCompile(t *testing.T) {
 		var name = strings.TrimSuffix(source, path.Ext(source))
 		var abiPath = path.Join(TestBuildPath, "out", name+".json")
 		var binPath = path.Join(TestBuildPath, "out", name+".bin")
-		var bindPath = path.Join(TestBuildPath, "adapter", name+".go")
+		var bindPath = path.Join(TestBuildPath, "adt", name+".go")
 
 		if _, err = os.Stat(abiPath); os.IsNotExist(err) {
 			t.Error("Error : ABI not found")

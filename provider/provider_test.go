@@ -8,7 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/frostornge/ethornge/account"
 	"github.com/frostornge/ethornge/ganache"
-	"github.com/frostornge/ethornge/test/build/adapter"
+	"github.com/frostornge/ethornge/test/build/adt"
 )
 
 var ctx = context.Background()

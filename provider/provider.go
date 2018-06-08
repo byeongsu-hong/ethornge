@@ -5,6 +5,10 @@ import (
 
 	"math/big"
 
+	"time"
+
+	"fmt"
+
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -13,6 +17,8 @@ import (
 )
 
 var (
+	ErrTimeout = fmt.Errorf("Timeout")
+
 	DefaultLedgerOption = &Option{
 		Path:  "m/44'/60'/0'/",
 		Start: 0,
@@ -83,6 +89,36 @@ func PrivateKeyProvider(opt *Option) (provider *Provider, err error) {
 	return
 }
 
+/* Provider only */
+func (pv *Provider) WaitMinedWithTimeout(tx *types.Transaction, d time.Duration) (*types.Receipt, error) {
+	ctx, cancel := context.WithTimeout(pv.Context, d)
+	defer cancel()
+
+	receipt, err := bind.WaitMined(ctx, pv.Client, tx)
+	if err != nil {
+		return nil, err
+	}
+	if receipt == nil && err == nil {
+		return nil, ErrTimeout
+	}
+	return receipt, nil
+}
+
+func (pv *Provider) WaitDeployedWithTimeout(tx *types.Transaction, d time.Duration) (common.Address, error) {
+	ctx, cancel := context.WithTimeout(pv.Context, d)
+	defer cancel()
+
+	addr, err := bind.WaitDeployed(ctx, pv.Client, tx)
+	if err != nil {
+		return common.Address{}, err
+	}
+	if addr == (common.Address{}) && err == nil {
+		return common.Address{}, ErrTimeout
+	}
+	return addr, nil
+}
+
+/* Provider bind */
 func (pv *Provider) BlockByHash(hash common.Hash) (*types.Block, error) {
 	return pv.Client.BlockByHash(pv.Context, hash)
 }

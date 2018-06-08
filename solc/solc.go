@@ -11,12 +11,7 @@ import (
 	"github.com/frostornge/ethornge/utils"
 )
 
-const (
-	outPath = "out"
-	adtPath = "adapter"
-)
-
-func exportBind(contracts map[string]*compiler.Contract, out string) (err error) {
+func exportBind(contracts map[string]*compiler.Contract, out string, abiPath string, binPath string, adtPath string) (err error) {
 	var (
 		abis  []string
 		bins  []string
@@ -26,8 +21,8 @@ func exportBind(contracts map[string]*compiler.Contract, out string) (err error)
 	)
 	for n := range contracts {
 		var file = strings.Split(n, ":")[1]
-		var abiPath = path.Join(out, outPath, file+".json")
-		var binPath = path.Join(out, outPath, file+".bin")
+		var abiPath = path.Join(out, abiPath, file+".json")
+		var binPath = path.Join(out, binPath, file+".bin")
 		var bindPath = path.Join(out, adtPath, file+".go")
 
 		var data []byte
@@ -55,12 +50,12 @@ func exportBind(contracts map[string]*compiler.Contract, out string) (err error)
 	return
 }
 
-func exportBIN(contracts map[string]*compiler.Contract, out string) (err error) {
+func exportBIN(contracts map[string]*compiler.Contract, out string, binPath string) (err error) {
 	for n, contract := range contracts {
 		var file = strings.Split(n, ":")[1] + ".bin"
 
 		if err = utils.WriteFile(
-			path.Join(out, outPath, file),
+			path.Join(out, binPath, file),
 			[]byte(contract.Code),
 		); err != nil {
 			return
@@ -69,7 +64,7 @@ func exportBIN(contracts map[string]*compiler.Contract, out string) (err error) 
 	return
 }
 
-func exportABI(contracts map[string]*compiler.Contract, out string) (err error) {
+func exportABI(contracts map[string]*compiler.Contract, out string, abiPath string) (err error) {
 	for n, contract := range contracts {
 		var data []byte
 		var file = strings.Split(n, ":")[1] + ".json"
@@ -83,7 +78,7 @@ func exportABI(contracts map[string]*compiler.Contract, out string) (err error) 
 		}
 
 		if err = utils.WriteFile(
-			path.Join(out, outPath, file),
+			path.Join(out, abiPath, file),
 			data,
 		); err != nil {
 			return
@@ -93,15 +88,19 @@ func exportABI(contracts map[string]*compiler.Contract, out string) (err error) 
 }
 
 // Compile creates abi and bind of contract
-func Compile(solc string, dir string, out string) (err error) {
+func Compile(solc string, dir string, out string, abiPath string, binPath string, adtPath string) (err error) {
 	var contracts map[string]*compiler.Contract
 
 	// Create Directory
-	if err = utils.CreateDir(path.Join(out, outPath)); err != nil {
+	if err = utils.CreateDir(path.Join(out, abiPath)); err != nil {
 		return
 	}
 
 	if err = utils.CreateDir(path.Join(out, adtPath)); err != nil {
+		return
+	}
+
+	if err = utils.CreateDir(path.Join(out, binPath)); err != nil {
 		return
 	}
 
@@ -131,15 +130,15 @@ func Compile(solc string, dir string, out string) (err error) {
 		return
 	}
 
-	if err = exportABI(contracts, out); err != nil {
+	if err = exportABI(contracts, out, abiPath); err != nil {
 		return
 	}
 
-	if err = exportBIN(contracts, out); err != nil {
+	if err = exportBIN(contracts, out, binPath); err != nil {
 		return
 	}
 
-	if err = exportBind(contracts, out); err != nil {
+	if err = exportBind(contracts, out, abiPath, binPath, adtPath); err != nil {
 		return
 	}
 

@@ -7,8 +7,6 @@ import (
 
 	"time"
 
-	"fmt"
-
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -17,8 +15,6 @@ import (
 )
 
 var (
-	ErrTimeout = fmt.Errorf("Timeout")
-
 	DefaultLedgerOption = &Option{
 		Path:  "m/44'/60'/0'/",
 		Start: 0,

@@ -93,29 +93,13 @@ func PrivateKeyProvider(opt *Option) (provider *Provider, err error) {
 func (pv *Provider) WaitMinedWithTimeout(tx *types.Transaction, d time.Duration) (*types.Receipt, error) {
 	ctx, cancel := context.WithTimeout(pv.Context, d)
 	defer cancel()
-
-	receipt, err := bind.WaitMined(ctx, pv.Client, tx)
-	if err != nil {
-		return nil, err
-	}
-	if receipt == nil && err == nil {
-		return nil, ErrTimeout
-	}
-	return receipt, nil
+	return bind.WaitMined(ctx, pv.Client, tx)
 }
 
 func (pv *Provider) WaitDeployedWithTimeout(tx *types.Transaction, d time.Duration) (common.Address, error) {
 	ctx, cancel := context.WithTimeout(pv.Context, d)
 	defer cancel()
-
-	addr, err := bind.WaitDeployed(ctx, pv.Client, tx)
-	if err != nil {
-		return common.Address{}, err
-	}
-	if addr == (common.Address{}) && err == nil {
-		return common.Address{}, ErrTimeout
-	}
-	return addr, nil
+	return bind.WaitDeployed(ctx, pv.Client, tx)
 }
 
 /* Provider bind */

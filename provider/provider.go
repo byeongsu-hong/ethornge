@@ -15,74 +15,17 @@ import (
 )
 
 var (
-	DefaultLedgerOption = &Option{
+	DefaultLedgerOption = &LedgerOption{
 		Path:  "m/44'/60'/0'/",
 		Start: 0,
 		End:   1,
 	}
 )
 
-type Option struct {
-	// Common option
-	URL       string
-	Context   context.Context
-	Network   string
-	NetworkID int
-
-	// PrivateKey provider Option
-	Keys []string
-
-	// Keystore provider Option
-	Keypath  string
-	Password string
-
-	// Ledger provider Option
-	Path  string
-	Start int
-	End   int
-}
-
 type Provider struct {
 	*ethclient.Client
 	Context  context.Context
 	Accounts []*bind.TransactOpts
-}
-
-func LedgerProvider(opt *Option) (provider *Provider, err error) {
-	provider = new(Provider)
-	provider.Context = opt.Context
-	provider.Client, err = getClient(opt)
-	if err != nil {
-		return
-	}
-	provider.Accounts, err = getLedgerOpts(opt)
-	return
-}
-
-func KeystoreProvider(opt *Option) (provider *Provider, err error) {
-	provider = new(Provider)
-	provider.Context = opt.Context
-	provider.Client, err = getClient(opt)
-	if err != nil {
-		return
-	}
-	var account *bind.TransactOpts
-	if account, err = getKeystoreOpt(opt); err != nil {
-		return
-	}
-	provider.Accounts = []*bind.TransactOpts{account}
-	return
-}
-
-func PrivateKeyProvider(opt *Option) (provider *Provider, err error) {
-	provider = new(Provider)
-	provider.Context = opt.Context
-	provider.Client, err = getClient(opt)
-	if err != nil {
-		return
-	}
-	provider.Accounts, err = getPrivateKeyOpts(opt)
-	return
 }
 
 /* Provider only */

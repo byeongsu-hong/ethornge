@@ -91,19 +91,6 @@ func exportABI(contracts map[string]*compiler.Contract, out string, abiPath stri
 func Compile(solc string, dir string, out string, abiPath string, binPath string, adtPath string) (err error) {
 	var contracts map[string]*compiler.Contract
 
-	// Create Directory
-	if err = utils.CreateDir(path.Join(out, abiPath)); err != nil {
-		return
-	}
-
-	if err = utils.CreateDir(path.Join(out, adtPath)); err != nil {
-		return
-	}
-
-	if err = utils.CreateDir(path.Join(out, binPath)); err != nil {
-		return
-	}
-
 	// Get solidity files from folder
 	var sources []string
 	if sources, err = utils.GetDirElems(dir); err != nil {
@@ -127,6 +114,32 @@ func Compile(solc string, dir string, out string, abiPath string, binPath string
 
 	// Restore working path
 	if err = os.Chdir(origin); err != nil {
+		return
+	}
+
+	// Create Directory
+	if err = utils.RemoveDir(path.Join(out, abiPath)); err != nil {
+		return
+	}
+
+	if err = utils.RemoveDir(path.Join(out, adtPath)); err != nil {
+		return
+	}
+
+	if err = utils.RemoveDir(path.Join(out, binPath)); err != nil {
+		return
+	}
+
+	// Create Directory
+	if err = utils.CreateDir(path.Join(out, abiPath)); err != nil {
+		return
+	}
+
+	if err = utils.CreateDir(path.Join(out, adtPath)); err != nil {
+		return
+	}
+
+	if err = utils.CreateDir(path.Join(out, binPath)); err != nil {
 		return
 	}
 

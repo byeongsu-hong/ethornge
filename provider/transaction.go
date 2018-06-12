@@ -3,6 +3,7 @@ package provider
 import (
 	"fmt"
 	"log"
+	"time"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -50,7 +51,7 @@ func NewSignedTransactionWithData(
 	return opts.Signer(types.HomesteadSigner{}, opts.From, tx)
 }
 
-func PrintTxResult(opts *bind.TransactOpts, receipt *types.Receipt) {
+func PrintTxResult(tx *types.Transaction, receipt *types.Receipt) {
 	var status string
 	if receipt.Status == 0 {
 		status = "Failed"
@@ -59,13 +60,18 @@ func PrintTxResult(opts *bind.TransactOpts, receipt *types.Receipt) {
 	}
 
 	var gasPrice = new(big.Int).Div(
-		opts.GasPrice,
+		tx.GasPrice(),
 		big.NewInt(params.Shannon),
 	)
 
 	log.Println("TxHash           : ", receipt.TxHash.Hex())
 	log.Println("TxReceipt Status : ", status)
-	log.Println("Gas Limit        : ", opts.GasLimit)
+	log.Println("Gas Limit        : ", tx.Gas())
 	log.Println("Gas Used         : ", receipt.GasUsed)
 	log.Println("Gas Price        : ", gasPrice, "Gwei")
+}
+
+func PrintTxResultWithTime(tx *types.Transaction, receipt *types.Receipt, start time.Time) {
+	log.Printf("Confirmed : %.3f s\n", time.Since(start).Seconds())
+	PrintTxResult(tx, receipt)
 }

@@ -25,12 +25,14 @@ func TestPrivateKeyProvider(t *testing.T) {
 	}
 	defer cmd.Process.Kill()
 
-	var pv *Provider
-	if pv, err = PrivateKeyProvider(&Option{
+	pvopt := &PrivateKeyOption{
 		URL:     opt.Url(),
 		Context: ctx,
 		Keys:    opt.Accounts.GetKeys(),
-	}); err != nil {
+	}
+
+	var pv *Provider
+	if pv, err = pvopt.PrivateKeyProvider(); err != nil {
 		t.Error("Error : ", err)
 		return
 	}

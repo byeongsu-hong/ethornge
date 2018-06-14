@@ -3,26 +3,23 @@ package provider
 import (
 	"fmt"
 	"log"
-	"time"
 	"math/big"
+	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/params"
 )
 
-func NewSignedTransaction(
-	client *ethclient.Client,
+func (pv *Provider) NewSignedTransaction(
 	opts *bind.TransactOpts,
 	to common.Address,
 ) (*types.Transaction, error) {
-	return NewSignedTransactionWithData(client, opts, to, nil)
+	return pv.NewSignedTransactionWithData(opts, to, nil)
 }
 
-func NewSignedTransactionWithData(
-	client *ethclient.Client,
+func (pv *Provider) NewSignedTransactionWithData(
 	opts *bind.TransactOpts,
 	to common.Address,
 	data []byte,
@@ -43,7 +40,7 @@ func NewSignedTransactionWithData(
 		return nil, fmt.Errorf("nil context option")
 	}
 
-	var nonce, err = client.NonceAt(opts.Context, opts.From, nil)
+	var nonce, err = pv.NonceAt(opts.Context, opts.From, nil)
 	if err != nil {
 		return nil, err
 	}

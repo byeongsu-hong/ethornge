@@ -19,6 +19,15 @@ func CreateDir(path string) error {
 	return nil
 }
 
+func CreateDirs(paths ...string) (err error) {
+	for _, path := range paths {
+		if err = CreateDir(path); err != nil {
+			return
+		}
+	}
+	return
+}
+
 func CreateFile(path string) error {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		var file *os.File
@@ -30,6 +39,15 @@ func CreateFile(path string) error {
 	return nil
 }
 
+func CreateFiles(paths ...string) (err error) {
+	for _, path := range paths {
+		if err = CreateFile(path); err != nil {
+			return
+		}
+	}
+	return
+}
+
 func RemoveDir(path string) error {
 	if err := os.RemoveAll(path); err != nil {
 		return err
@@ -37,11 +55,29 @@ func RemoveDir(path string) error {
 	return nil
 }
 
+func RemoveDirs(paths ...string) (err error) {
+	for _, path := range paths {
+		if err = RemoveDir(path); err != nil {
+			return
+		}
+	}
+	return
+}
+
 func RemoveFile(path string) error {
 	if err := os.Remove(path); err != nil {
 		return err
 	}
 	return nil
+}
+
+func RemoveFiles(paths ...string) (err error) {
+	for _, path := range paths {
+		if err = RemoveFile(path); err != nil {
+			return
+		}
+	}
+	return
 }
 
 func WriteFile(path string, data []byte) error {

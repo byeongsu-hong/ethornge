@@ -18,7 +18,7 @@ func Launch(ganache string, opt *Option) (cmd *exec.Cmd, err error) {
 		err = fmt.Errorf("Please insert account settings")
 		return
 	}
-	var port = Convert(opt.Port, "8545")
+	var port = convert(opt.Port, "8545")
 	if checkPortAlreadyUsed(port) {
 		err = fmt.Errorf("Port already used")
 		return

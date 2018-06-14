@@ -13,7 +13,7 @@ var TestContractPath = "../test/contract"
 var TestBuildPath = "../test/build"
 
 func TestCompile(t *testing.T) {
-	utils.RemoveDir("../test/build")
+	utils.RemoveDir(TestBuildPath)
 
 	if err := Compile(
 		"solc",

@@ -117,29 +117,19 @@ func Compile(solc string, dir string, out string, abiPath string, binPath string
 		return
 	}
 
-	// Create Directory
-	if err = utils.RemoveDir(path.Join(out, abiPath)); err != nil {
+	if err = utils.RemoveDirs(
+		path.Join(out, abiPath),
+		path.Join(out, adtPath),
+		path.Join(out, binPath),
+	); err != nil {
 		return
 	}
 
-	if err = utils.RemoveDir(path.Join(out, adtPath)); err != nil {
-		return
-	}
-
-	if err = utils.RemoveDir(path.Join(out, binPath)); err != nil {
-		return
-	}
-
-	// Create Directory
-	if err = utils.CreateDir(path.Join(out, abiPath)); err != nil {
-		return
-	}
-
-	if err = utils.CreateDir(path.Join(out, adtPath)); err != nil {
-		return
-	}
-
-	if err = utils.CreateDir(path.Join(out, binPath)); err != nil {
+	if err = utils.CreateDirs(
+		path.Join(out, abiPath),
+		path.Join(out, adtPath),
+		path.Join(out, binPath),
+	); err != nil {
 		return
 	}
 

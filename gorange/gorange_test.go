@@ -15,7 +15,11 @@ import (
 )
 
 func TestLaunch(t *testing.T) {
-	n, err := Launch(Config{2470, 2471, 2472})
+	n, err := Launch(Config{
+		2470,
+		"127.0.0.1", 2471,
+		"127.0.0.1", 2472,
+	})
 	assert.NoError(t, err)
 
 	pv, err := n.WsProvider(context.Background(), []string{""})

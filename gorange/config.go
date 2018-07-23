@@ -17,7 +17,9 @@ import (
 
 type Config struct {
 	NetworkId uint64
+	HTTPHost  string
 	HTTPPort  int
+	WSHost    string
 	WSPort    int
 }
 
@@ -61,9 +63,9 @@ func getNode(c Config) (*Node, error) {
 	// set up node config
 	nodeConfig.UserIdent = "gorange"
 	nodeConfig.DataDir = ""
-	nodeConfig.HTTPHost = "127.0.0.1"
+	nodeConfig.HTTPHost = c.HTTPHost
 	nodeConfig.HTTPPort = c.HTTPPort
-	nodeConfig.WSHost = "127.0.0.1"
+	nodeConfig.WSHost = c.WSHost
 	nodeConfig.WSPort = c.WSPort
 
 	stack, err := node.New(nodeConfig)

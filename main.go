@@ -8,9 +8,9 @@ import (
 
 func main() {
 	node, err := gorange.Launch(gorange.Config{
-		NetworkId: 4470,
-		HTTPPort:  4471,
-		WSPort:    4472,
+		4470,
+		"0.0.0.0", 4471,
+		"0.0.0.0", 4472,
 	})
 	if err != nil {
 		log.Fatalln(err)

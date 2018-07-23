@@ -42,7 +42,7 @@ func (n Node) getProvider(ctx context.Context, url string, phrases []string) (pv
 		err = fmt.Errorf("Ethereum service not running: %v", err)
 		return
 	}
-	chainId := e.BlockChain().Config().ChainId
+	chainId := e.BlockChain().Config().ChainID
 
 	ks := n.Keystore()
 	accounts := ks.Accounts()

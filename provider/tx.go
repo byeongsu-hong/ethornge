@@ -69,6 +69,6 @@ func PrintTxResult(tx *types.Transaction, receipt *types.Receipt) {
 }
 
 func PrintTxResultWithTime(tx *types.Transaction, receipt *types.Receipt, start time.Time) {
-	log.Printf("Confirmed : %.3f s\n", time.Since(start).Seconds())
+	log.Printf("Confirmed        : %.3f s\n", time.Since(start).Seconds())
 	PrintTxResult(tx, receipt)
 }

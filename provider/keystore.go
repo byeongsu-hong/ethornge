@@ -44,7 +44,7 @@ func (opt *KeystoreOption) Provider(network string) (provider *Provider, err err
 	}
 	provider = new(Provider)
 	provider.Context = opt.Context
-	provider.Client, err = opt.Network[network].getClient(opt.Context)
+	provider.Client, err = opt.Network[network].GetClient(opt.Context)
 	if err != nil {
 		return
 	}

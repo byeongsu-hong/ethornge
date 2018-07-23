@@ -4,8 +4,13 @@ import (
 	"bytes"
 	"fmt"
 	"os/exec"
+	"math/big"
 	"strings"
 	"time"
+	"context"
+
+	"github.com/frostornge/ethornge/account"
+	"github.com/frostornge/ethornge/provider"
 )
 
 const (
@@ -37,6 +42,20 @@ func Launch(ganache string, opt *Option) (cmd *exec.Cmd, err error) {
 		}
 		time.Sleep(1 * time.Second)
 		cnt++
+	}
+	return
+}
+
+func LaunchDefault(ganache string, port *big.Int, network string) (cmd *exec.Cmd, pv *provider.Provider, err error) {
+	var opt = &Option{
+		Port:     port,
+		Accounts: account.GetDefaultAccounts(),
+	}
+	if cmd, err = Launch(ganache, opt); err != nil {
+		return
+	}
+	if pv, err = opt.Provider(context.Background(), network); err != nil {
+		return
 	}
 	return
 }

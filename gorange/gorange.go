@@ -1,15 +1,34 @@
 package gorange
 
-import "github.com/frostornge/ethornge/utils"
+import (
+	"fmt"
 
-func Launch(gnOpt *GenesisOption, gethOpt *GethOption) (err error) {
-	if err = utils.CreateDir(gethOpt.DataDir); err != nil {
+	"github.com/ethereum/go-ethereum/eth"
+	"github.com/frostornge/ethornge/utils"
+)
+
+func Launch(c Config) (node *Node, err error) {
+	node, err = getNode(c)
+	if err != nil {
 		return
 	}
+	err = start(node)
+	return
+}
 
-	if err = gnOpt.Accounts.Export(gethOpt.AccountDir); err != nil {
-		return
+func start(stack *Node) error {
+	if err := stack.Start(); err != nil {
+		return fmt.Errorf("Error starting protocol stack: %v", err)
 	}
 
-	return gnOpt.init(gethOpt)
+	var e *eth.Ethereum
+	if err := stack.Service(&e); err != nil {
+		return fmt.Errorf("Ethereum service not running: %v", err)
+	}
+
+	e.TxPool().SetGasPrice(utils.Gwei(1))
+	if err := e.StartMining(true); err != nil {
+		return fmt.Errorf("Failed to start mining: %v", err)
+	}
+	return nil
 }

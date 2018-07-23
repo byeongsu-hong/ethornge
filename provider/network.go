@@ -20,7 +20,7 @@ type Network struct {
 	NetworkID *big.Int `json:"network_id"`
 }
 
-func (opt *Network) getClient(ctx context.Context) (client *ethclient.Client, err error) {
+func (opt *Network) GetClient(ctx context.Context) (client *ethclient.Client, err error) {
 	client, err = ethclient.Dial(opt.URL)
 	if err != nil {
 		return

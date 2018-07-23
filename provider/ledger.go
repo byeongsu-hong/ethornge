@@ -41,7 +41,7 @@ func getLedgerAccount(account accounts.Account, wallet accounts.Wallet, id *big.
 	return &bind.TransactOpts{
 		From: account.Address,
 		Signer: func(signer types.Signer, addr common.Address, tx *types.Transaction) (*types.Transaction, error) {
-			return wallet.SignTx(account, tx, big.NewInt(5777))
+			return wallet.SignTx(account, tx, id)
 		},
 	}
 }
@@ -87,7 +87,7 @@ func (opt *LedgerOption) Provider(network string) (provider *Provider, err error
 	}
 	provider = new(Provider)
 	provider.Context = opt.Context
-	provider.Client, err = opt.Network[network].getClient(opt.Context)
+	provider.Client, err = opt.Network[network].GetClient(opt.Context)
 	if err != nil {
 		return
 	}

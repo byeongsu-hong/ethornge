@@ -1,41 +1,40 @@
 package gorange
 
 import (
+	"context"
 	"testing"
-)
 
-const (
-	testGenesisPath = "../test/gorange/genesis.json"
-	testAccountDir  = "../test/gorange/account/"
-	testGethDatadir = "../test/gorange/datadir/"
+	"math/big"
+
+	"log"
+
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/frostornge/ethornge/test/build/adt"
+	"github.com/frostornge/ethornge/utils"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestLaunch(t *testing.T) {
-	//utils.RemoveDir("../test/gorange")
-	//
-	//var (
-	//	err      error
-	//	accounts = account.GetDefaultAccounts()
-	//	gnOpt    = &GenesisOption{
-	//		FilePath:  testGenesisPath,
-	//		Consensus: true,
-	//		Period:    5,
-	//		ChainId:   big.NewInt(4349),
-	//		Signers: []common.Address{
-	//			accounts[0].Address,
-	//			accounts[1].Address,
-	//		},
-	//		Accounts: accounts,
-	//	}
-	//	gethOpt = &GethOption{
-	//		Geth:       "geth",
-	//		DataDir:    testGethDatadir,
-	//		AccountDir: testAccountDir,
-	//	}
-	//)
-	//
-	//if err = Launch(gnOpt, gethOpt); err != nil {
-	//	t.Error(err)
-	//	return
-	//}
+	n, err := Launch(Config{2470, 2471, 2472})
+	assert.NoError(t, err)
+
+	pv, err := n.WsProvider(context.Background(), []string{""})
+	assert.NoError(t, err)
+
+	_, tx, revert, err := adapter.DeployRevertMessage(pv.Accounts[0], pv.Client)
+	assert.NoError(t, err)
+	bind.WaitDeployed(pv.Context, pv.Client, tx)
+
+	pv.Accounts[0].GasPrice = utils.Gwei(1)
+	pv.Accounts[0].GasLimit = 50000
+
+	tx, err = revert.Set(pv.Accounts[0], big.NewInt(60))
+	assert.NoError(t, err)
+
+	receipt, err := bind.WaitMined(pv.Context, pv.Client, tx)
+	assert.NoError(t, err)
+
+	log.Println(receipt.Bloom)
+
+	n.Stop()
 }

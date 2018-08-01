@@ -23,7 +23,7 @@ func (n Node) Keystore() *keystore.KeyStore {
 	return n.AccountManager().Backends(keystore.KeyStoreType)[0].(*keystore.KeyStore)
 }
 
-func (n Node) getProvider(ctx context.Context, url string, phrases []string) (pv *provider.Provider, err error) {
+func (n Node) getProvider(ctx context.Context, url string) (pv *provider.Provider, err error) {
 	net := make(map[string]*provider.Network)
 	net[network] = &provider.Network{
 		URL:     url,
@@ -47,33 +47,29 @@ func (n Node) getProvider(ctx context.Context, url string, phrases []string) (pv
 	ks := n.Keystore()
 	accounts := ks.Accounts()
 	for i := range accounts {
-		if len(phrases) > i {
-			if err = ks.Unlock(accounts[i], phrases[i]); err != nil {
-				err = fmt.Errorf(
-					"error occured while unlock account\n addr : %s, error : %v",
-					accounts[i].Address.Hex(), err,
-				)
-				return
-			}
-			pv.Accounts = append(pv.Accounts, &bind.TransactOpts{
-				Context: ctx,
-				From:    accounts[i].Address,
-				Signer: func(signer types.Signer, addresses common.Address, transaction *types.Transaction) (*types.Transaction, error) {
-					return ks.SignTx(accounts[i], transaction, chainId)
-				},
-			})
-		} else {
-			break
+		if err = ks.Unlock(accounts[i], ""); err != nil {
+			err = fmt.Errorf(
+				"error occured while unlock account\n addr : %s, error : %v",
+				accounts[i].Address.Hex(), err,
+			)
+			return
 		}
+		pv.Accounts = append(pv.Accounts, &bind.TransactOpts{
+			Context: ctx,
+			From:    accounts[i].Address,
+			Signer: func(signer types.Signer, addresses common.Address, transaction *types.Transaction) (*types.Transaction, error) {
+				return ks.SignTx(accounts[i], transaction, chainId)
+			},
+		})
 	}
 
 	return
 }
 
-func (n Node) HttpProvider(ctx context.Context, phrases []string) (*provider.Provider, error) {
-	return n.getProvider(ctx, "http://"+n.HTTPEndpoint(), phrases)
+func (n Node) HttpProvider(ctx context.Context) (*provider.Provider, error) {
+	return n.getProvider(ctx, "http://"+n.HTTPEndpoint())
 }
 
-func (n Node) WsProvider(ctx context.Context, phrases []string) (*provider.Provider, error) {
-	return n.getProvider(ctx, "ws://"+n.WSEndpoint(), phrases)
+func (n Node) WsProvider(ctx context.Context) (*provider.Provider, error) {
+	return n.getProvider(ctx, "ws://"+n.WSEndpoint())
 }

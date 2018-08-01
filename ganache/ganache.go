@@ -2,20 +2,20 @@ package ganache
 
 import (
 	"bytes"
+	"context"
 	"fmt"
-	"os/exec"
 	"math/big"
+	"os/exec"
 	"strings"
 	"time"
-	"context"
 
 	"github.com/frostornge/ethornge/account"
 	"github.com/frostornge/ethornge/provider"
 )
 
 const (
-	attempt = 20
-	message = "Listening on localhost:"
+	attempt = 50
+	message = "Listening on 127.0.0.1:"
 )
 
 func Launch(ganache string, opt *Option) (cmd *exec.Cmd, err error) {

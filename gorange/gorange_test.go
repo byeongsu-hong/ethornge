@@ -4,41 +4,23 @@ import (
 	"context"
 	"testing"
 
-	"math/big"
-
-	"log"
-
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/frostornge/ethornge/test/build/adt"
-	"github.com/frostornge/ethornge/utils"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLaunch(t *testing.T) {
 	n, err := Launch(Config{
-		2470,
-		"127.0.0.1", 2471,
-		"127.0.0.1", 2472,
+		NetworkId: 2470,
+		WSHost:    "127.0.0.1",
+		WSPort:    2471,
+		HTTPHost:  "127.0.0.1",
+		HTTPPort:  2472,
+		Accounts:  20,
+		Balances:  100,
 	})
 	assert.NoError(t, err)
 
-	pv, err := n.WsProvider(context.Background(), []string{""})
+	_, err = n.WsProvider(context.Background())
 	assert.NoError(t, err)
-
-	_, tx, revert, err := adapter.DeployRevertMessage(pv.Accounts[0], pv.Client)
-	assert.NoError(t, err)
-	bind.WaitDeployed(pv.Context, pv.Client, tx)
-
-	pv.Accounts[0].GasPrice = utils.Gwei(1)
-	pv.Accounts[0].GasLimit = 50000
-
-	tx, err = revert.Set(pv.Accounts[0], big.NewInt(60))
-	assert.NoError(t, err)
-
-	receipt, err := bind.WaitMined(pv.Context, pv.Client, tx)
-	assert.NoError(t, err)
-
-	log.Println(receipt.Bloom)
 
 	n.Stop()
 }

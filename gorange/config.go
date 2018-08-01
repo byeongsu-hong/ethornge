@@ -21,6 +21,8 @@ type Config struct {
 	HTTPPort  int
 	WSHost    string
 	WSPort    int
+	Accounts  int   // count
+	Balances  int64 // ETH
 }
 
 func defaultNodeConfig() node.Config {

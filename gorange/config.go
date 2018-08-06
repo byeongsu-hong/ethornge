@@ -26,6 +26,7 @@ type Config struct {
 	Account   int
 	Accounts  []common.Address // count
 	Balances  int64            // ETH
+	Period    uint64
 }
 
 func defaultNodeConfig() node.Config {
@@ -134,7 +135,7 @@ func getNode(c Config) (*Node, error) {
 		}
 		accounts = append(accounts, account.Address)
 	}
-	ethConfig.Genesis = developerGenesisBlock(uint64(0), append(accounts, c.Accounts...), c.Balances)
+	ethConfig.Genesis = developerGenesisBlock(c.Period, append(accounts, c.Accounts...), c.Balances)
 	ethConfig.Genesis.Config.ChainID = big.NewInt(int64(c.NetworkId))
 
 	ethutils.RegisterEthService(stack, ethConfig)

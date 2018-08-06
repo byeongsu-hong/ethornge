@@ -14,7 +14,7 @@ func TestLaunch(t *testing.T) {
 		WSPort:    2471,
 		HTTPHost:  "127.0.0.1",
 		HTTPPort:  2472,
-		Accounts:  20,
+		Account:   2,
 		Balances:  100,
 	})
 	assert.NoError(t, err)

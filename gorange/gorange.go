@@ -8,7 +8,7 @@ import (
 )
 
 func Launch(c Config) (*Node, error) {
-	node, err := getNode(c)
+	node, err := c.getNode()
 	if err != nil {
 		return nil, err
 	}

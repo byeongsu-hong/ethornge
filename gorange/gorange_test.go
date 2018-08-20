@@ -8,15 +8,7 @@ import (
 )
 
 func TestLaunch(t *testing.T) {
-	n, err := Launch(Config{
-		NetworkId: 2470,
-		WSHost:    "127.0.0.1",
-		WSPort:    2471,
-		HTTPHost:  "127.0.0.1",
-		HTTPPort:  2472,
-		Account:   2,
-		Balances:  100,
-	})
+	n, err := Launch(DefaultLocalConfig(nil, 0))
 	assert.NoError(t, err)
 
 	_, err = n.WsProvider(context.Background())

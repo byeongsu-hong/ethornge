@@ -14,7 +14,6 @@ import (
 	"github.com/ethereum/go-ethereum/node"
 	"github.com/ethereum/go-ethereum/params"
 	whisper "github.com/ethereum/go-ethereum/whisper/whisperv6"
-	"github.com/frostornge/ethornge/utils"
 )
 
 type Config struct {
@@ -23,10 +22,33 @@ type Config struct {
 	HTTPPort  int
 	WSHost    string
 	WSPort    int
-	Account   int
 	Accounts  []common.Address // count
 	Balances  int64            // ETH
 	Period    uint64
+}
+
+func DefaultLocalConfig(accs []common.Address, bals int64) Config {
+	return Config{
+		NetworkId: 2470,
+		HTTPHost:  "127.0.0.1",
+		HTTPPort:  2471,
+		WSHost:    "127.0.0.1",
+		WSPort:    2472,
+		Accounts:  accs,
+		Balances:  bals,
+	}
+}
+
+func DefaultRemoteConfig(accs []common.Address, bals int64) Config {
+	return Config{
+		NetworkId: 4470,
+		HTTPHost:  "0.0.0.0",
+		HTTPPort:  4471,
+		WSHost:    "0.0.0.0",
+		WSPort:    4472,
+		Accounts:  accs,
+		Balances:  bals,
+	}
 }
 
 func defaultNodeConfig() node.Config {
@@ -56,13 +78,13 @@ func makeDatabaseHandles() int {
 	return limit / 2 // Leave half for networking and other stuff
 }
 
-func developerGenesisBlock(period uint64, accounts []common.Address, balance int64) *core.Genesis {
+func developerGenesisBlock(period uint64, faucet common.Address) *core.Genesis {
 	config := *params.AllCliqueProtocolChanges
 	config.Clique.Period = period
 
 	genesis := &core.Genesis{
 		Config:     &config,
-		ExtraData:  append(append(make([]byte, 32), accounts[0][:]...), make([]byte, 65)...),
+		ExtraData:  append(append(make([]byte, 32), faucet[:]...), make([]byte, 65)...),
 		GasLimit:   6283185,
 		Difficulty: big.NewInt(1),
 		Alloc: map[common.Address]core.GenesisAccount{
@@ -74,18 +96,13 @@ func developerGenesisBlock(period uint64, accounts []common.Address, balance int
 			common.BytesToAddress([]byte{6}): {Balance: big.NewInt(1)}, // ECAdd
 			common.BytesToAddress([]byte{7}): {Balance: big.NewInt(1)}, // ECScalarMul
 			common.BytesToAddress([]byte{8}): {Balance: big.NewInt(1)}, // ECPairing
-			accounts[0]:                      {Balance: new(big.Int).Sub(new(big.Int).Lsh(big.NewInt(1), 256), big.NewInt(9))},
+			faucet: {Balance: new(big.Int).Sub(new(big.Int).Lsh(big.NewInt(1), 256), big.NewInt(9))},
 		},
 	}
-
-	for _, account := range accounts[1:] {
-		genesis.Alloc[account] = core.GenesisAccount{Balance: utils.Ether(balance)}
-	}
-
 	return genesis
 }
 
-func getNode(c Config) (*Node, error) {
+func (c Config) getNode() (*Node, error) {
 	n := defaultNodeConfig()
 	nodeConfig := &n
 
@@ -118,24 +135,16 @@ func getNode(c Config) (*Node, error) {
 	ethConfig.DatabaseHandles = makeDatabaseHandles()
 
 	ks := stack.AccountManager().Backends(keystore.KeyStoreType)[0].(*keystore.KeyStore)
-	var accounts []common.Address
-	for i := 0; i <= c.Account; i++ { // at least one account
-		account, err := ks.NewAccount("")
-		if err != nil {
-			return nil, fmt.Errorf("Failed to create account: %v", err)
-		}
-		if err := ks.Unlock(account, ""); err != nil {
-			return nil, fmt.Errorf("Failed to unlock account: %v", err)
-		}
-
-		if i == 0 {
-			log.Println("Faucet :", account.Address.Hex())
-		} else {
-			log.Println("Account [", i, "] :", account.Address.Hex())
-		}
-		accounts = append(accounts, account.Address)
+	faucet, err := ks.NewAccount("")
+	if err != nil {
+		return nil, fmt.Errorf("Failed to create account: %v", err)
 	}
-	ethConfig.Genesis = developerGenesisBlock(c.Period, append(accounts, c.Accounts...), c.Balances)
+	if err := ks.Unlock(faucet, ""); err != nil {
+		return nil, fmt.Errorf("Failed to unlock account: %v", err)
+	}
+	log.Println("Faucet :", faucet.Address.Hex())
+
+	ethConfig.Genesis = developerGenesisBlock(c.Period, faucet.Address)
 	ethConfig.Genesis.Config.ChainID = big.NewInt(int64(c.NetworkId))
 
 	ethutils.RegisterEthService(stack, ethConfig)

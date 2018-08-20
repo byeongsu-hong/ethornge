@@ -7,14 +7,7 @@ import (
 )
 
 func main() {
-	node, err := gorange.Launch(gorange.Config{
-		4470,
-		"0.0.0.0", 4471,
-		"0.0.0.0", 4472,
-		5,
-		nil,
-		100,
-	})
+	node, err := gorange.Launch(gorange.DefaultRemoteConfig(nil, 0))
 	if err != nil {
 		log.Fatalln(err)
 	}

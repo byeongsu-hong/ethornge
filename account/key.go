@@ -38,3 +38,18 @@ func (ks Keys) GetAddresses() []common.Address {
 	}
 	return addrs
 }
+
+func (ks Keys) GetKeys() (keys []*ecdsa.PrivateKey) {
+	for _, acc := range ks {
+		keys = append(keys, acc.PrivateKey)
+	}
+	return
+}
+
+func (ks Keys) GetDividedMetadata() (addrs []common.Address, keys []*ecdsa.PrivateKey) {
+	for _, acc := range ks {
+		addrs = append(addrs, acc.Address)
+		keys = append(keys, acc.PrivateKey)
+	}
+	return
+}

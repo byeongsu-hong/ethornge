@@ -4,15 +4,31 @@ import (
 	"context"
 	"testing"
 
+	"log"
+
+	"github.com/frostornge/ethornge/account"
+	"github.com/frostornge/ethornge/utils"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLaunch(t *testing.T) {
-	n, err := Launch(DefaultLocalConfig(nil, 0))
+	var ks account.Keys
+	for i := 0; i < 10000; i++ {
+		k, err := account.NewKey()
+		assert.NoError(t, err)
+		ks = append(ks, k)
+	}
+
+	n, err := Launch(DefaultLocalConfig(ks.GetAddresses(), 100))
 	assert.NoError(t, err)
 
-	_, err = n.WsProvider(context.Background())
+	pv, err := n.WsProvider(context.Background())
 	assert.NoError(t, err)
+	defer pv.Close()
 
+	for _, acc := range ks.GetAddresses() {
+		balance, _ := pv.BalanceAt(pv.Context, acc, nil)
+		log.Println(utils.WeiToEth(balance))
+	}
 	n.Stop()
 }

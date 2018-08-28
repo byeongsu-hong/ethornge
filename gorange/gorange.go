@@ -12,19 +12,27 @@ func Launch(c Config) (*Node, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = start(node)
+	if err = node.start(); err != nil {
+		return nil, err
+	}
+	if err = node.preAlloc(c); err != nil {
+		return nil, err
+	}
+
 	return node, nil
 }
 
-func start(stack *Node) error {
-	if err := stack.Start(); err != nil {
+func (n *Node) start() error {
+	if err := n.Start(); err != nil {
 		return fmt.Errorf("Error starting protocol stack: %v", err)
 	}
 
 	var e *eth.Ethereum
-	if err := stack.Service(&e); err != nil {
+	if err := n.Service(&e); err != nil {
 		return fmt.Errorf("Ethereum service not running: %v", err)
 	}
+
+	e.ChainDb()
 
 	e.TxPool().SetGasPrice(utils.Gwei(1))
 	if err := e.StartMining(true); err != nil {

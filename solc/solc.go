@@ -16,7 +16,7 @@ const (
 	PATH_BIND = "bind"
 )
 
-func exportBind(contracts map[string]*compiler.Contract, out string) error {
+func ExportBind(contracts map[string]*compiler.Contract, out string) error {
 	var (
 		abis  []string
 		bins  []string
@@ -47,7 +47,7 @@ func exportBind(contracts map[string]*compiler.Contract, out string) error {
 	return nil
 }
 
-func exportJSON(contracts map[string]*compiler.Contract, out string) error {
+func ExportJSON(contracts map[string]*compiler.Contract, out string) error {
 	for n, contract := range contracts {
 		var file = strings.Split(n, ":")[1] + ".json"
 		var data, err = json.MarshalIndent(contract, "", "    ")
@@ -98,11 +98,11 @@ func Compile(solc string, dir string, out string) (err error) {
 		return
 	}
 
-	if err = exportJSON(contracts, out); err != nil {
+	if err = ExportJSON(contracts, out); err != nil {
 		return
 	}
 
-	if err = exportBind(contracts, out); err != nil {
+	if err = ExportBind(contracts, out); err != nil {
 		return
 	}
 

@@ -14,7 +14,7 @@ import (
 func Gwei(x int64) *big.Int {
 	return new(big.Int).Mul(
 		big.NewInt(x),
-		big.NewInt(params.Shannon),
+		big.NewInt(params.GWei),
 	)
 }
 
@@ -28,7 +28,7 @@ func Ether(x int64) *big.Int {
 func WeiToGwei(wei *big.Int) *big.Float {
 	return new(big.Float).Quo(
 		new(big.Float).SetInt(wei),
-		new(big.Float).SetInt64(params.Shannon),
+		new(big.Float).SetInt64(params.GWei),
 	)
 }
 

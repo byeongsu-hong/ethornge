@@ -58,7 +58,7 @@ func PrintTxResult(tx *types.Transaction, receipt *types.Receipt) {
 
 	var gasPrice = new(big.Int).Div(
 		tx.GasPrice(),
-		big.NewInt(params.Shannon),
+		big.NewInt(params.GWei),
 	)
 
 	log.Println("TxHash           : ", receipt.TxHash.Hex())

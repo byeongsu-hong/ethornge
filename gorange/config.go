@@ -131,7 +131,7 @@ func (c Config) getNode() (*Node, error) {
 	ethConfig.NetworkId = c.NetworkId
 	ethConfig.NoPruning = false
 	ethConfig.EnablePreimageRecording = true
-	ethConfig.GasPrice = big.NewInt(1)
+	ethConfig.MinerGasPrice = big.NewInt(1)
 	ethConfig.DatabaseHandles = makeDatabaseHandles()
 
 	ks := stack.AccountManager().Backends(keystore.KeyStoreType)[0].(*keystore.KeyStore)

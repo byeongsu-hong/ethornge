@@ -3,6 +3,8 @@ package gorange
 import (
 	"fmt"
 
+	"runtime"
+
 	"github.com/ethereum/go-ethereum/eth"
 	"github.com/frostornge/ethornge/utils"
 )
@@ -35,7 +37,7 @@ func (n *Node) start() error {
 	e.ChainDb()
 
 	e.TxPool().SetGasPrice(utils.Gwei(1))
-	if err := e.StartMining(true); err != nil {
+	if err := e.StartMining(runtime.NumCPU()); err != nil {
 		return fmt.Errorf("Failed to start mining: %v", err)
 	}
 	return nil

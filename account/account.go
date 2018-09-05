@@ -38,19 +38,24 @@ func (acc Account) SendToWithTimeout(
 	to common.Address,
 	val *big.Int,
 	t time.Duration,
-) (*types.Receipt, error) {
+) (*types.Transaction, *types.Receipt, error) {
 	tx, err := pv.NewSignedTransaction(
 		acc.GetOpt(pv.Context, val, nil, 0), to,
 	)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if err = pv.SendTransaction(pv.Context, tx); err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return pv.WaitMinedWithTimeout(tx, t)
+	receipt, err := pv.WaitMinedWithTimeout(tx, t)
+	return tx, receipt, err
 }
 
-func (acc Account) SendTo(pv *provider.Provider, to common.Address, val *big.Int) (*types.Receipt, error) {
+func (acc Account) SendTo(
+	pv *provider.Provider,
+	to common.Address,
+	val *big.Int,
+) (*types.Transaction, *types.Receipt, error) {
 	return acc.SendToWithTimeout(pv, to, val, 30*time.Minute)
 }

@@ -5,8 +5,9 @@ import (
 	"math/big"
 	"time"
 
+	"log"
+
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/frostornge/ethornge/provider"
 	"github.com/frostornge/ethornge/utils"
 )
 
@@ -50,11 +51,14 @@ func (n *Node) preAlloc(c Config) error {
 		if err != nil {
 			return err
 		}
-		if receipt, err := pv.WaitMinedWithTimeout(tx, time.Minute); err != nil {
+		if _, err := pv.WaitMinedWithTimeout(tx, time.Minute); err != nil {
 			return err
-		} else {
-			provider.PrintTxResult(tx, receipt)
 		}
 	}
+
+	for i, acc := range c.Accounts {
+		log.Println("Account [", i, "] :", acc.Hex())
+	}
+
 	return nil
 }

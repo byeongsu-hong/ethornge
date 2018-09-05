@@ -16,6 +16,8 @@ import (
 	whisper "github.com/ethereum/go-ethereum/whisper/whisperv6"
 )
 
+// Config stores private network informations
+// that will be launched during the gorange deployment session.
 type Config struct {
 	NetworkId uint64
 	HTTPHost  string
@@ -27,6 +29,8 @@ type Config struct {
 	Period    uint64
 }
 
+// DefaultLocalConfig set ups private network on localhost:2471
+// with given balances on each of given addresses.
 func DefaultLocalConfig(accs []common.Address, bals int64) Config {
 	return Config{
 		NetworkId: 2470,
@@ -39,6 +43,8 @@ func DefaultLocalConfig(accs []common.Address, bals int64) Config {
 	}
 }
 
+// DefaultLocalConfig set ups public network on localhost:4471
+// with given balances on each of given addresses.
 func DefaultRemoteConfig(accs []common.Address, bals int64) Config {
 	return Config{
 		NetworkId: 4470,

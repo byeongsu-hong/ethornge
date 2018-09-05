@@ -7,15 +7,17 @@ import (
 	"github.com/frostornge/ethornge/utils"
 )
 
-func Launch(c Config) (*Node, error) {
-	node, err := c.getNode()
+// Launch starts a private network that'll be used 
+// during gorange deployment session, with given config.
+func Launch(config Config) (*Node, error) {
+	node, err := config.getNode()
 	if err != nil {
 		return nil, err
 	}
 	if err = node.start(); err != nil {
 		return nil, err
 	}
-	if err = node.preAlloc(c); err != nil {
+	if err = node.preAlloc(config); err != nil {
 		return nil, err
 	}
 
@@ -34,7 +36,10 @@ func (n *Node) start() error {
 
 	e.ChainDb()
 
+	// use minimum gas price for convinience.
 	e.TxPool().SetGasPrice(utils.Gwei(1))
+
+	// start executing transactions
 	if err := e.StartMining(true); err != nil {
 		return fmt.Errorf("Failed to start mining: %v", err)
 	}

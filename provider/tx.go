@@ -6,6 +6,7 @@ import (
 	"math/big"
 	"time"
 
+	ethereum "github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -32,19 +33,38 @@ func (pv *Provider) NewSignedTransactionWithData(
 		return nil, fmt.Errorf("nil signer option")
 	}
 
-	if opts.GasPrice == nil || opts.GasLimit == 0 {
-		return nil, fmt.Errorf("no gas option")
+	if opts.GasPrice == nil {
+		gasPrice, err := pv.SuggestGasPrice(pv.Context)
+		if err != nil {
+			return nil, err
+		}
+		opts.GasPrice = gasPrice
+	}
+
+	if opts.GasLimit == 0 {
+		gasLimit, err := pv.EstimateGas(pv.Context, ethereum.CallMsg{
+			From:     opts.From,
+			To:       &to,
+			Gas:      0,
+			GasPrice: opts.GasPrice,
+			Value:    opts.Value,
+			Data:     data,
+		})
+		if err != nil {
+			return nil, err
+		}
+		opts.GasLimit = gasLimit
 	}
 
 	if opts.Context == nil {
 		return nil, fmt.Errorf("nil context option")
 	}
 
-	var nonce, err = pv.NonceAt(opts.Context, opts.From, nil)
+	nonce, err := pv.NonceAt(opts.Context, opts.From, nil)
 	if err != nil {
 		return nil, err
 	}
-	var tx = types.NewTransaction(nonce, to, opts.Value, opts.GasLimit, opts.GasPrice, data)
+	tx := types.NewTransaction(nonce, to, opts.Value, opts.GasLimit, opts.GasPrice, data)
 	return opts.Signer(types.HomesteadSigner{}, opts.From, tx)
 }
 

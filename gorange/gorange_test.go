@@ -13,7 +13,7 @@ import (
 
 func TestLaunch(t *testing.T) {
 	var ks account.Keys
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100; i++ {
 		k, err := account.NewKey()
 		assert.NoError(t, err)
 		ks = append(ks, k)

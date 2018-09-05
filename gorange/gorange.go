@@ -3,11 +3,13 @@ package gorange
 import (
 	"fmt"
 
+	"runtime"
+
 	"github.com/ethereum/go-ethereum/eth"
 	"github.com/frostornge/ethornge/utils"
 )
 
-// Launch starts a private network that'll be used 
+// Launch starts an embedded private network that'll be used 
 // during gorange deployment session, with given config.
 func Launch(config Config) (*Node, error) {
 	node, err := config.getNode()
@@ -40,7 +42,8 @@ func (n *Node) start() error {
 	e.TxPool().SetGasPrice(utils.Gwei(1))
 
 	// start executing transactions
-	if err := e.StartMining(true); err != nil {
+	// TODO: runtime.NumCPU 조절
+	if err := e.StartMining(runtime.NumCPU()); err != nil {
 		return fmt.Errorf("Failed to start mining: %v", err)
 	}
 	return nil

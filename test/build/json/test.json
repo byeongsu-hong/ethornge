@@ -1,0 +1,28 @@
+{
+    "code": "0x6080604052348015600f57600080fd5b5060858061001e6000396000f300608060405260043610603e5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416630dbe671f81146043575b600080fd5b348015604e57600080fd5b5060556057565b005b5600a165627a7a723058204a919b0d46b3f068eec1a4f601881b4b11c616f6f93f23068dc14fafb70b10b10029",
+    "info": {
+        "source": "pragma solidity ^0.4.24;\n\ncontract test {\n    function a(){\n\n    }\n}\n",
+        "language": "Solidity",
+        "languageVersion": "0.4.24",
+        "compilerVersion": "0.4.24",
+        "compilerOptions": "--combined-json bin,abi,userdoc,devdoc,metadata --optimize",
+        "abiDefinition": [
+            {
+                "constant": false,
+                "inputs": [],
+                "name": "a",
+                "outputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }
+        ],
+        "userDoc": {
+            "methods": {}
+        },
+        "developerDoc": {
+            "methods": {}
+        },
+        "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"a\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"test.sol\":\"test\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"test.sol\":{\"keccak256\":\"0x8dfabebc704e8a412214a758f2b41b2434fda039a859341b6462649e066be3dd\",\"urls\":[\"bzzr://ebe4820a95e35f2d8e36d089da94404f2d24728ed203717e4423c1629e13c94d\"]}},\"version\":1}"
+    }
+}

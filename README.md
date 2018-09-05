@@ -14,12 +14,12 @@ A simple, vanila deployment toolkit (or framework), on the top of [go-ethereum](
 ```go
 func main() {
     // launch an embedded private network that'll be run
-    // during the deployment (or test) esssion, with an account with 100 ETH.
+    // during the deployment (or test) session, with an account with 100 ETH.
     key, _ := account.NewKey()
     node, _ := gorange.Launch(
-        gorange.DefaultLocalConfig([]common.Address{key.Address}, 100)
+        gorange.DefaultLocalConfig([]common.Address{key.Address}, 100),
     )
-    defer n.Stop()
+    defer node.Stop()
 
     // connect to the private node
     provider, _ := node.WsProviderWithAccounts(context.Background(), account.Keys{key})

@@ -13,6 +13,8 @@ import (
 
 const PADDING = 20
 
+// preAlloc distributes funds with given config.
+// NOTE THAT it deploys fund allocation contract called PreAlloc, during the allocation.
 func (n *Node) preAlloc(c Config) error {
 	pv, err := n.WsProvider(context.Background())
 	if err != nil {

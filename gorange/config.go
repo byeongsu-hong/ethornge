@@ -12,13 +12,16 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/eth"
 	"github.com/ethereum/go-ethereum/node"
+	"github.com/ethereum/go-ethereum/p2p/discv5"
 	"github.com/ethereum/go-ethereum/params"
 	whisper "github.com/ethereum/go-ethereum/whisper/whisperv6"
+	"github.com/frostornge/ethornge/account"
 )
 
 // Config stores private network informations
 // that will be launched during the gorange deployment session.
 type Config struct {
+	// TODO - add multi-node private network config
 	NetworkId uint64
 	HTTPHost  string
 	HTTPPort  int
@@ -85,6 +88,7 @@ func makeDatabaseHandles() int {
 }
 
 func developerGenesisBlock(period uint64, faucet common.Address) *core.Genesis {
+	// TODO - support other consensus
 	config := *params.AllCliqueProtocolChanges
 	config.Clique.Period = period
 
@@ -108,26 +112,35 @@ func developerGenesisBlock(period uint64, faucet common.Address) *core.Genesis {
 	return genesis
 }
 
-func (c Config) getNode() (*Node, error) {
-	n := defaultNodeConfig()
-	nodeConfig := &n
-
+func setP2PConfig(c Config, n *node.Config) {
+	key, _ := account.NewKey()
 	// set up p2p config
-	p2pConfig := &nodeConfig.P2P
+	// TODO - support bootstrap node
+	p2pConfig := n.P2P
 	p2pConfig.MaxPeers = 0
 	p2pConfig.ListenAddr = ":0"
-	p2pConfig.NoDiscovery = true
-	p2pConfig.DiscoveryV5 = false
+	p2pConfig.DiscoveryV5 = true
+	p2pConfig.BootstrapNodesV5 = []*discv5.Node{NewBootNode(key)}
+}
 
+func setNodeConfig(c Config, n *node.Config) {
 	// set up node config
-	nodeConfig.UserIdent = "gorange"
-	nodeConfig.DataDir = ""
-	nodeConfig.HTTPHost = c.HTTPHost
-	nodeConfig.HTTPPort = c.HTTPPort
-	nodeConfig.WSHost = c.WSHost
-	nodeConfig.WSPort = c.WSPort
+	n.UserIdent = "gorange"
+	n.DataDir = ""
+	n.HTTPHost = c.HTTPHost
+	n.HTTPPort = c.HTTPPort
+	n.WSHost = c.WSHost
+	n.WSPort = c.WSPort
+}
 
-	stack, err := node.New(nodeConfig)
+func (c Config) getNode() (*Node, error) {
+	n := defaultNodeConfig()
+	nc := &n
+
+	setP2PConfig(c, nc)
+	setNodeConfig(c, nc)
+
+	stack, err := node.New(nc)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create the protocol stack: %v", err)
 	}

@@ -9,7 +9,7 @@ import (
 	"github.com/frostornge/ethornge/utils"
 )
 
-// Launch starts an embedded private network that'll be used 
+// Launch starts an embedded private network that'll be used
 // during gorange deployment session, with given config.
 func Launch(config Config) (*Node, error) {
 	node, err := config.getNode()

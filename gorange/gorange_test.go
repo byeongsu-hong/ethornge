@@ -13,7 +13,7 @@ import (
 
 func TestLaunch(t *testing.T) {
 	var ks account.Keys
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 10; i++ {
 		k, err := account.NewKey()
 		assert.NoError(t, err)
 		ks = append(ks, k)
@@ -21,6 +21,7 @@ func TestLaunch(t *testing.T) {
 
 	n, err := Launch(DefaultLocalConfig(ks.GetAddresses(), 100))
 	assert.NoError(t, err)
+	defer n.Stop()
 
 	pv, err := n.WsProvider(context.Background())
 	assert.NoError(t, err)
@@ -30,5 +31,4 @@ func TestLaunch(t *testing.T) {
 		balance, _ := pv.BalanceAt(pv.Context, acc, nil)
 		log.Println(utils.WeiToEth(balance))
 	}
-	n.Stop()
 }
